@@ -7,7 +7,7 @@ public class Suelo : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ball"))
+        if (collision.gameObject.GetComponent<Ball>("Ball"))
         {
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             GameManager.manager.launchPosition = new Vector2(collision.transform.position.x, collision.transform.position.y);
