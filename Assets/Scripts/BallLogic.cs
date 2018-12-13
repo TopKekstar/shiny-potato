@@ -25,6 +25,7 @@ public class BallLogic : MonoBehaviour {
     /// 
     public void MoveTo(Vector3 destiny, System.Action<BallLogic> action = null)
     {
+        
         StartCoroutine(MoveToCoroutine(destiny,action));
         
     }
@@ -51,12 +52,23 @@ public class BallLogic : MonoBehaviour {
 
     }
 
+    public void ShootBall(Vector2 direction, float velocity)
+    {
+        rigidbody.velocity = new Vector2(direction.x,direction.y);
+       
+
+    }
+    private void Awake()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
+
+    }
+
     /// <summary>
     /// Initilizacion of the component, this is a method from MonoBehaviour
     /// </summary>
     void Start () {
-        rigidbody = GetComponent<Rigidbody2D>();
-        rigidbody.velocity = new Vector2(0, 3);
+       
 
     }
 

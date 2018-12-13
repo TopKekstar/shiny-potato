@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class BallSink : MonoBehaviour {
     private TextMesh text;
+    private Vector2 _ballPos;
+    private int _deadBalls;
+    public int _numBalls;
 
     public void BallReached(BallLogic ball)
     {
-        Debug.Log("reached");
+        if(_deadBalls == 0)
+        {
+            _ballPos = ball.transform.position;
+            _deadBalls++;
+
+        }
+        else if(_deadBalls == _numBalls)
+        {
+            _deadBalls = 0;
+        }
         
     }
 

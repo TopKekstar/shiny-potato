@@ -195,6 +195,21 @@ Prefab:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
       value: -0.28
       objectReference: {fileID: 0}
+    - target: {fileID: 212448875985313094, guid: f9acf35d480011e419a6601fe9d15d30,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212448875985313094, guid: f9acf35d480011e419a6601fe9d15d30,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212448875985313094, guid: f9acf35d480011e419a6601fe9d15d30,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9acf35d480011e419a6601fe9d15d30, type: 2}
   m_IsPrefabAsset: 0
@@ -547,6 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079e2a06900d1344897e02793eb6f612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _numBalls: 0
 --- !u!4 &1024475777
 Transform:
   m_ObjectHideFlags: 0
@@ -650,7 +666,7 @@ GameObject:
   - component: {fileID: 1468723107}
   - component: {fileID: 1468723110}
   m_Layer: 0
-  m_Name: Suelo
+  m_Name: DeathZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -762,7 +778,7 @@ GameObject:
   - component: {fileID: 1573273817}
   - component: {fileID: 1573273816}
   m_Layer: 0
-  m_Name: launcher
+  m_Name: BallLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -779,6 +795,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5296b9894c887bd4db8db4536629231c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 1204947447600740, guid: db34f270f3f379443a6382dff32a4845, type: 2}
+  ballSink: {fileID: 1024475776}
 --- !u!4 &1573273817
 Transform:
   m_ObjectHideFlags: 0
@@ -786,7 +804,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1573273815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.2, z: 0}
+  m_LocalPosition: {x: 0, y: -3.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1009,6 +1027,50 @@ Transform:
   - {fileID: 905264234}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2005103364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2005103366}
+  - component: {fileID: 2005103365}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2005103365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2005103364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 467b380dd88dcf24c9c5ccbdbc8caee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballSink: {fileID: 1024475776}
+  ballLauncher: {fileID: 1573273816}
+  deathZone: {fileID: 1468723110}
+  nBalls: 10
+--- !u!4 &2005103366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2005103364}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2083870285
 Prefab:
