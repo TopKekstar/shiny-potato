@@ -1483,6 +1483,7 @@ MonoBehaviour:
   ballSink: {fileID: 1024475776}
   ballLauncher: {fileID: 1573273816}
   deathZone: {fileID: 1468723110}
+  boardManager: {fileID: 2082931909}
   _nBalls: 10
   onPlay: 0
 --- !u!4 &2005103366
@@ -1531,6 +1532,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2082931908}
+  - component: {fileID: 2082931909}
   m_Layer: 0
   m_Name: BlockGrid
   m_TagString: Untagged
@@ -1551,3 +1553,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2082931909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2082931907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aebb280ec7d6e44f85192aa9d0668c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
