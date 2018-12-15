@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour { 
+public class LevelManager : MonoBehaviour {
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public BallLaucher ballLaucher;
+    public BallSink ballSink;
+    public DeathZone deathZone;
     
+
 }

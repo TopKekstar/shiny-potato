@@ -5,7 +5,6 @@ using UnityEngine;
 public class DeathZone : MonoBehaviour {
     public BallSink ballSink;
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         BallLogic pelota = collision.GetComponent<BallLogic>();
