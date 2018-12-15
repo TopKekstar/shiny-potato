@@ -54,7 +54,7 @@ public class BallLogic : MonoBehaviour {
 
     public void ShootBall(Vector2 direction, float velocity)
     {
-        rigidbody.velocity = new Vector2(direction.x,direction.y);
+        rigidbody.velocity = new Vector2(direction.x,direction.y)*velocity;
        
 
     }
@@ -76,6 +76,6 @@ public class BallLogic : MonoBehaviour {
     /// Is called once per frame, this is a method from MonoBehaviour
     /// </summary>
     void Update () {
-		
+        transform.Rotate(0, 0, 10);
 	}
 }

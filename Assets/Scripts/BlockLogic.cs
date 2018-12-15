@@ -2,18 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockLogic : MonoBehaviour { 
-    public int lifes;
+public class BlockLogic : MonoBehaviour {
 
-    Vector2 GridPosition;
+    public class BlockInfo
+    {
+        public BlockInfo()
+        {
+            position = new Vector2Int();
+        }
+        public Vector2Int position;
+        public int type;
+        public int lifes;
+    }
+
+    protected int lifes;
+
+    Vector2Int GridPosition;
     protected TextMesh text;
     public virtual bool MustBeDestroyed()
     {
         return true;
     }
+
+ 
     public bool IsDead()
     {
-        return lifes < 1 && MustBeDestroyed();
+        return lifes < 1 ;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -22,7 +36,7 @@ public class BlockLogic : MonoBehaviour {
         {
             lifes = lifes - 1;
            
-            if(lifes <= 0 && MustBeDestroyed())
+            if(IsDead() && MustBeDestroyed())
             {
                 gameObject.SetActive(false);
             }
@@ -33,14 +47,15 @@ public class BlockLogic : MonoBehaviour {
         }
     }
 
-    public void SetProperties(uint x, uint y, int lifes)
+    public void SetProperties(Vector2Int position, int li)
     {
-
+        GridPosition = new Vector2Int(position.x, position.y);
+        lifes = li;
+        transform.Translate(position.x, -position.y, 0);
     }
 
     // Use this for initialization
     void Start () {
-        lifes = 2;
         text = GetComponentInChildren<TextMesh>();
         updateText();
 

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathZone : MonoBehaviour {
-    public BallSink ballSink;
+public class DeathZone : MonoBehaviour { 
 
     /// <summary>
-    /// 
+    /// A Delegate for sending the event when a ball enters the DeathZone
+    /// </summary>
+    public System.Action<BallLogic> actionBallTouch;
+
+    /// <summary>
+    /// Detects when somenthing enters the death zone
     /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,7 +19,11 @@ public class DeathZone : MonoBehaviour {
         if (pelota!=null)
         {
             pelota.Stop();
-            pelota.MoveTo(ballSink.transform.position,ballSink.BallReached);
+            if (actionBallTouch != null)
+            {
+                actionBallTouch(pelota);
+                
+            }
         }
     }
     // Use this for initialization
