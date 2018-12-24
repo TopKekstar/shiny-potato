@@ -14,27 +14,57 @@ public class BlockLogic : MonoBehaviour {
         public int type;
         public int lifes;
     }
-
-    protected int lifes;
-
     Vector2Int GridPosition;
     protected TextMesh text;
+    protected int lifes;
+
+    /// <summary>
+    /// Returns when the block must be destroyed in order to en the level
+    /// </summary>
+    /// <returns> if the block must be destroyed</returns>
     public virtual bool MustBeDestroyed()
     {
         return true;
     }
 
+    /// <summary>
+    /// Virtual method to indicate something touched the block and must do something
+    /// </summary>
+    public virtual void Touch()
+    {
+        lifes = lifes - 1;
+         
+        
+    }
+
+    /// <summary>
+    /// Indicates the block when the round is over
+    /// </summary>
+    public virtual void EndOfRound()
+    {
+
+    }
+
  
+    /// <summary>
+    /// to indicate if the block is dead.
+    /// </summary>
+    /// <returns>if the block is dead</returns>
     public bool IsDead()
     {
         return lifes < 1 ;
     }
 
+
+    /// <summary>
+    /// To detect the collision enter
+    /// </summary>
+    /// <param name="collision">the object that collides</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            lifes = lifes - 1;
+            Touch();
            
             if(IsDead() && MustBeDestroyed())
             {
@@ -47,6 +77,11 @@ public class BlockLogic : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Initialitiazion method
+    /// </summary>
+    /// <param name="position">initial position</param>
+    /// <param name="li">stands for lifes</param>
     public void SetProperties(Vector2Int position, int li)
     {
         GridPosition = new Vector2Int(position.x, position.y);

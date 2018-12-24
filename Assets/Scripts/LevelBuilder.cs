@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class LevelBuilder  {
 
+    /// <summary>
+    /// Read the file in order to build the map
+    /// </summary>
+    /// <param name="file">the file</param>
+    /// <returns>a blockInfo array build </returns>
     public static BlockLogic.BlockInfo[,] ReadFile(TextAsset file)
     {
         string maindata = file.text;

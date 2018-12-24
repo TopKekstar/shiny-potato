@@ -52,6 +52,11 @@ public class BallLogic : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// This method shoot the ball
+    /// </summary>
+    /// <param name="direction">the direction of the ball</param>
+    /// <param name="velocity">the velocity</param>
     public void ShootBall(Vector2 direction, float velocity)
     {
         rigidbody.velocity = new Vector2(direction.x,direction.y)*velocity;

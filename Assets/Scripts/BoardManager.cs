@@ -5,6 +5,11 @@ using UnityEngine;
 public class BoardManager : MonoBehaviour {
     BlockLogic[,] blocks;
     Dictionary<string, GameObject> prefabs;
+
+    /// <summary>
+    /// This method build the map with the build info provided before
+    /// </summary>
+    /// <param name="blockInfo">an bidimensional array with all the info about the map</param>
     public void BuildMap (BlockLogic.BlockInfo[,] blockInfo)
     {
         for(int i = 0; i < blockInfo.GetLength(0); i++)
@@ -43,6 +48,10 @@ public class BoardManager : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Check if every block that must destroyed is destroyed
+    /// </summary>
+    /// <returns>return true if every block that must be destroyed is destroyed, any other case return false</returns>
     public bool MapFinished()
     {
         for (int i = 0; i < blocks.GetLength(0); i++)
