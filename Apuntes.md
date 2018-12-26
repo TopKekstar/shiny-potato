@@ -41,5 +41,25 @@ Para ello hay que tener en cuenta varias cosas:
 - Hacer la regla de 3 con el aspect ratio de la pantalla.
 - Si el aspect ratio de la seccion de juego es distinto del de la pantalla habrá que hacer un ajuste por los laterales o por los verticales
 
+#### Serialización
 
-#### Camara
+Para serializar los objetos tenemos como opciones:
+- Utilizar la clase``jsonutilities``, que tiene metodos para leer una clase desde un archivo ``.json`` y serializar una clase sobre uno.
+Para poder hacer esto, habrá que marcar la clase como ``Serializable``.
+- Utilizar la serialización nativa de c# que lo serializa en binario.
+- Implementar serialización  propia de nuestra aplicación.
+
+
+#### Persistencia en el juego
+- Fichero en el registro del SO
+- Registro en la plataforma (GPlay, Steam, etc.). Restricciones: No se puede jugar sin conexión, requiere estar registrado en la plataforma.
+
+##### Progreso del juego entre ejecuciones
+
+
+##### Game manager
+Es el manager que gestiona todo el juego, desde el inicio.
+Cuando carga una escena, lanza el Level Manager.
+Debería ser un singleton conservado entre escenas. Habrá que usar el ``dontDestroyOnLoad`` en desarrollo, pero en release no debería hacerse así.
+##### Level Manager
+Gestiona el progreso y carga de un nivel.
