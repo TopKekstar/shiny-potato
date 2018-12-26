@@ -7,6 +7,26 @@ public class BoardManager : MonoBehaviour {
     Dictionary<string, GameObject> prefabs;
 
     /// <summary>
+    /// Notify to all blocks the end of the round, by calling the method end of round
+    /// </summary>
+    public void EndOfRound()
+    {
+        for(int i = blocks.GetLength(0)-1; i>=0 ; i--)
+        {
+            for (int j = blocks.GetLength(1); j >= 0; j--)
+            {
+                if (blocks[i, j] != null)
+                {
+                    blocks[i, j].EndOfRound();
+                }
+
+            }
+
+        }
+
+    }
+
+    /// <summary>
     /// This method build the map with the build info provided before
     /// </summary>
     /// <param name="blockInfo">an bidimensional array with all the info about the map</param>

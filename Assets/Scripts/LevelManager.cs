@@ -31,7 +31,6 @@ public class LevelManager : MonoBehaviour {
     private void AllBallsReached()
     {
         EndRound();
-        boardManager.MapFinished();
     }
 
     /// <summary>
@@ -85,11 +84,18 @@ public class LevelManager : MonoBehaviour {
 
     }
 
+
+    /// <summary>
+    /// Notify the end of the round and check the end of the level
+    /// </summary>
     void EndRound()
     {
         onPlay = true;
+        boardManager.EndOfRound();
+        boardManager.MapFinished();
+
     }
-  
+
     private void OnMouseDrag()
     {
        

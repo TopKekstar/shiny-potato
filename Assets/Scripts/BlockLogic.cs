@@ -39,12 +39,24 @@ public class BlockLogic : MonoBehaviour {
 
     /// <summary>
     /// Indicates the block when the round is over
+    /// This method is virtual
     /// </summary>
     public virtual void EndOfRound()
     {
 
+        transform.Translate(0, -1, 0);
+
     }
 
+    /// <summary>
+    /// check if this type of block can fall
+    /// this method is virtual
+    /// </summary>
+    /// <returns>if this block can fall</returns>
+    public virtual bool CanFall()
+    {
+        return true;
+    }
  
     /// <summary>
     /// to indicate if the block is dead.
@@ -62,7 +74,7 @@ public class BlockLogic : MonoBehaviour {
     /// <param name="collision">the object that collides</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ball"))
+        if (collision.gameObject.GetComponent<BallLogic>()!=null)
         {
             Touch();
            
@@ -86,7 +98,7 @@ public class BlockLogic : MonoBehaviour {
     {
         GridPosition = new Vector2Int(position.x, position.y);
         lifes = li;
-        transform.Translate(position.x, -position.y, 0);
+        transform.Translate(position.x, position.y, 0);
     }
 
     // Use this for initialization
