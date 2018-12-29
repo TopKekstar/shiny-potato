@@ -13,7 +13,7 @@ public class BoardManager : MonoBehaviour {
     {
         for(int i = blocks.GetLength(0)-1; i>=0 ; i--)
         {
-            for (int j = blocks.GetLength(1); j >= 0; j--)
+            for (int j = blocks.GetLength(1)-1; j >= 0; j--)
             {
                 if (blocks[i, j] != null)
                 {
@@ -32,6 +32,8 @@ public class BoardManager : MonoBehaviour {
     /// <param name="blockInfo">an bidimensional array with all the info about the map</param>
     public void BuildMap (BlockLogic.BlockInfo[,] blockInfo)
     {
+        Camera c = Camera.current;
+
         for(int i = 0; i < blockInfo.GetLength(0); i++)
         {
             for (int j = 0; j < blockInfo.GetLength(1); j++)

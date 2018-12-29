@@ -98,7 +98,7 @@ public class BlockLogic : MonoBehaviour {
     {
         GridPosition = new Vector2Int(position.x, position.y);
         lifes = li;
-        transform.Translate(position.x, position.y, 0);
+        transform.Translate(position.x, -position.y, 0);
     }
 
     // Use this for initialization
