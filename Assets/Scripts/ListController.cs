@@ -7,8 +7,7 @@ public class ListController : MonoBehaviour {
 
     [SerializeField]
     public GameObject element;
-    public int numberElements;
-    public Canvas c;
+    public int numberElements = 150;
 
 
    
@@ -24,14 +23,18 @@ public class ListController : MonoBehaviour {
         gridLG.spacing = new Vector2(squareSide/10, squareSide/5);
         
 
-        
-        var eLE = element.GetComponent<LayoutElement>();
+     
         
 
 
         for (int i = 0; i < numberElements; i++)
         {
             var z = Instantiate(element, gameObject.transform);
+            z.GetComponent<MenuButtonBehaviour>().setButtonId(i+1);
+           // z.GetComponent<Button>().interactable = false;
+            z.GetComponentInChildren<Text>().text = (i+1).ToString();
+            z.GetComponentInChildren<Text>().fontSize = (int)Mathf.Floor((1/3f)* squareSide);
+           
         }
 	}
 	

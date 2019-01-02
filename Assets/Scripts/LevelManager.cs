@@ -60,10 +60,16 @@ public class LevelManager : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
+      
+    }
+    public void buildLevel(int idx)
+    {
         BlockLogic.BlockInfo[,] blockInfo;
-        TextAsset text = Resources.Load<TextAsset>("Mapas/mapdata1");
+        string path = "Mapas/mapdata" + idx.ToString();
+        TextAsset text = Resources.Load<TextAsset>(path);
         blockInfo = LevelBuilder.ReadFile(text);
         boardManager.BuildMap(blockInfo);
+
 
     }
 
