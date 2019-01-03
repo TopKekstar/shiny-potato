@@ -12,7 +12,7 @@ public class TileBallGiver : Tile
         {
             if (Touch())
             {
-                
+                gameObject.SetActive(false);
             }
 
         }

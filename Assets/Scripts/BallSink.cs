@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Component where the balls go to sleep
+/// </summary>
 public class BallSink : MonoBehaviour {
     private TextMesh text;
     private Vector2 _ballPos;

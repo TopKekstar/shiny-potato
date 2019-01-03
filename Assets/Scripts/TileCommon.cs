@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Son of tile, this tile is just a common tile nothing to see here
+/// </summary>
 public class TileCommon : Tile
 {
     protected TextMesh text;

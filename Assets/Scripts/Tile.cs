@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The main tile class, father of all kind of tiles
+/// </summary>
 public class Tile : MonoBehaviour {
     public class TileInfo
     {

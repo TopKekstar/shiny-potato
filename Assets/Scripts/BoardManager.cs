@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// For managing the tiles 
+/// </summary>
 public class BoardManager : MonoBehaviour {
     BlockLogic[,] blocks;
     Dictionary<string, GameObject> prefabs;

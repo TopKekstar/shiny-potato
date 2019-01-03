@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Component for launching balls
+/// </summary>
 public class BallLaucher : MonoBehaviour {
     private int _ballsLaunched;
     public GameObject ball;
