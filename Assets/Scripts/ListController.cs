@@ -29,7 +29,7 @@ public class ListController : MonoBehaviour {
             if (!level.unlocked)
             {
                 z.GetComponent<Button>().interactable = false;
-                foreach(Transform child in z.transform)
+                foreach (Transform child in z.transform)
                 {
                     child.gameObject.SetActive(false);
                 }
@@ -39,8 +39,17 @@ public class ListController : MonoBehaviour {
                 z.GetComponent<MenuButtonBehaviour>().setButtonId(i + 1);
                 z.GetComponentInChildren<Text>().text = (i + 1).ToString();
                 z.GetComponentInChildren<Text>().fontSize = (int)Mathf.Floor((1 / 3f) * squareSide);
-            }
 
+                Transform starZone = z.transform.GetChild(0);
+
+
+                int k = level.stars;
+                while(k > 0)
+                {
+                    starZone.GetChild(k-1).gameObject.SetActive(true);
+                    k--;
+                }
+            }
             i++;
         }
 	}

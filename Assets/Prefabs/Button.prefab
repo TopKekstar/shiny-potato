@@ -42,7 +42,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1724238987073366
 GameObject:
   m_ObjectHideFlags: 1
@@ -59,7 +59,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1742202872593158
 GameObject:
   m_ObjectHideFlags: 1
@@ -76,7 +76,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1750773622209632
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +167,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 4483eba98b9f7324c9502213b2fc9b0a,
+      type: 3}
     m_PressedSprite: {fileID: 21300000, guid: b2431c73c013f1446a024c0fc4348d51, type: 3}
     m_DisabledSprite: {fileID: 21300000, guid: 9e21163df8875aa4ea1e5210a669f355, type: 3}
   m_AnimationTriggers:
@@ -399,7 +400,7 @@ RectTransform:
   - {fileID: 224703186548051890}
   - {fileID: 224536679505752034}
   m_Father: {fileID: 224273793022987470}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.075}
   m_AnchorMax: {x: 1, y: 0.45}
@@ -416,8 +417,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 224723091955430928}
   - {fileID: 224020915330288494}
+  - {fileID: 224723091955430928}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -473,7 +474,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224273793022987470}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 1}
