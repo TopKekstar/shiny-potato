@@ -32,10 +32,8 @@ public class GameManager : MonoBehaviour {
                 if (gO.GetComponent<LevelManager>() != null)
                     z = gO;
 
-            if (z != null)
-                z.GetComponent<LevelManager>().buildLevel(_loadedLevel);
-            else
-                Debug.Log("cago en cristo");
+            z.GetComponent<LevelManager>().buildLevel(_loadedLevel);
+    
 
         }
 

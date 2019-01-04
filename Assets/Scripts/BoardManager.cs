@@ -119,6 +119,24 @@ public class BoardManager : MonoBehaviour {
 
     }
 
+    public void Earthquake()
+    {
+        for (int i = 0; i < blocks.GetLength(0); i++)
+        {
+            for (int j = 0; j < blocks.GetLength(1); j++)
+            {
+                if (blocks[i, j] != null)
+                {
+                    if (blocks[i, j].Touch())
+                    {
+                        
+                    }
+                }
+            }
+        }
+
+    }
+
     /// <summary>
     /// Check if every block that must destroyed is destroyed
     /// </summary>
