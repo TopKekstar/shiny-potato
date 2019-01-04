@@ -17,8 +17,6 @@ public class ListController : MonoBehaviour {
         var gridLG = gameObject.GetComponent<GridLayoutGroup> ();
         var squareSide = Mathf.Floor(gameObject.GetComponent<RectTransform>().rect.width / (gridLG.constraintCount+1f));
 
-        Debug.Log(gameObject.GetComponent<RectTransform>().rect.width);
-
         gridLG.cellSize = new Vector2(squareSide, squareSide);
         gridLG.spacing = new Vector2(squareSide/10, squareSide/5);
         

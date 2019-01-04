@@ -8,7 +8,7 @@ public class ScalableCamera : MonoBehaviour
 {
 
     // Use this for initialization
-    void Update()
+    public void SetUpCamera()
     {
         float TARGET_WIDTH = 720.0f;
         float TARGET_HEIGHT = 919.0f;
@@ -29,5 +29,6 @@ public class ScalableCamera : MonoBehaviour
             float differenceInSize = desiredRatio / currentRatio;
             Camera.main.orthographicSize = TARGET_HEIGHT / 4 / PIXELS_TO_UNITS * differenceInSize;
         }
+
     }
 }

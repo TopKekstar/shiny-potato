@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Debug
+using UnityEngine.SceneManagement;
+
 public class LevelManager : MonoBehaviour {
+    public Camera cam;
+    public CanvasController canvasC;
     public BallSink ballSink;
     public BallLaucher ballLauncher;
     public DeathZone deathZone;
@@ -61,7 +66,6 @@ public class LevelManager : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-      
     }
 
     
@@ -73,7 +77,8 @@ public class LevelManager : MonoBehaviour {
         tileInfoMatrix = LevelBuilder.ReadFile(text);
         boardManager.BuildMap(tileInfoMatrix,this);
 
-
+        cam.GetComponent<ScalableCamera>().SetUpCamera();
+        canvasC.SetUpCanvas();        
     }
 
     /// <summary>
