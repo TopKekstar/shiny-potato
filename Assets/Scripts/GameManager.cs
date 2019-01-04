@@ -7,17 +7,20 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
     public static GameManager manager;
     private int _loadedLevel;
+    private gameProgress gProgress;
 
     // Use this for initialization
     private void Awake()
     {
+        manager = this;
         SceneManager.sceneLoaded += onSceneLoaded;
     }
     void Start () {
-        manager = this;
+        gProgress = ProgressManager.LoadGameProgress();
     }
     public void loadLevel(int id)
     {
+        ProgressManager.SaveProgress(gProgress);
         _loadedLevel = id;
         SceneManager.LoadScene(1);
       
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour {
         if (scene.buildIndex == 0)
         {
             _loadedLevel = -1;
+            
            
         }
         else if (scene.buildIndex == 1) // Esto significa que hemos cargado la escena con indice 1, que es la de juego
@@ -43,13 +47,18 @@ public class GameManager : MonoBehaviour {
         }
 
     }
+    public GameManager.gameProgress getGameProgress()
+    {
+        if (gProgress == null) gProgress = ProgressManager.LoadGameProgress();
+        return gProgress;
+    }
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
     private void OnApplicationQuit() // aquí es donde deberíamos cerrar y codificar el progreso
     {
-        
+        ProgressManager.SaveProgress(gProgress);
     }
 
 
@@ -80,7 +89,7 @@ public class GameManager : MonoBehaviour {
         {
             return JsonUtility.FromJson<gameProgress>(json);
         }
-
+       
         
 
         public gameProgress(int nLevels)
@@ -112,6 +121,5 @@ public class GameManager : MonoBehaviour {
                 nLevels = value;
             }
         }
-
     }
 }

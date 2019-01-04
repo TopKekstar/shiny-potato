@@ -19,7 +19,7 @@ public class ListController : MonoBehaviour {
         gridLG.spacing = new Vector2(squareSide/10, squareSide/5);
 
 
-        GameManager.gameProgress l = ProgressManager.LoadGameProgress();
+        GameManager.gameProgress l = GameManager.manager.getGameProgress();
 
 
         int i = 0;
