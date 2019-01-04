@@ -16,8 +16,18 @@ public class Tile : MonoBehaviour {
         public int _type;
         public int _touchs;
     }
+    protected bool _dead;
+    public bool Dead
+    {
+        get
+        {
+            return _dead;
+        }
+    }
+
     protected int _pendingTouchs;
-    protected Vector2Int GridPosition;
+    public Vector2Int GridPosition;
+    protected LevelManager levelManager;
 
     /// <summary>
     /// Overridable Method for initializiation of the Tile
@@ -25,11 +35,12 @@ public class Tile : MonoBehaviour {
     /// <param name="x">X position in the grid</param>
     /// <param name="y">Y position in the grid</param>
     /// <param name="touchs">Touchs you need for destroying that tile</param>
-    public virtual void Init(int x , int y, int touchs)
+    public virtual void Init(int x , int y, int touchs, LevelManager lm)
     {
+        _dead = false;
+        levelManager= lm;
         GridPosition = new Vector2Int(x, y);
         _pendingTouchs = touchs;
-        transform.Translate(x, y, 0);
     }
 
     /// <summary>
@@ -52,12 +63,11 @@ public class Tile : MonoBehaviour {
     }
 
     /// <summary>
-    ///  Overridable method for notify the block the round is over.
+    ///  Overridable method for notifying the block the round is over.
     /// </summary>
     public virtual void EndOfRound()
     {
-        transform.Translate(0, -1, 0);
-        GridPosition.y++;
+       
     }
 
     /// <summary>

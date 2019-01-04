@@ -10,6 +10,8 @@ public class TileCommon : Tile
 {
     protected TextMesh text;
 
+    private bool RunningCourroutine;
+
     /// <summary>
     /// for detecting the collision enter
     /// </summary>
@@ -20,14 +22,68 @@ public class TileCommon : Tile
         { 
             if (Touch())
             {
-                gameObject.SetActive(false);
+                _dead = true;
+                GetComponent<Collider2D>().enabled = false;
+                StopCoroutine(DeathCouritine());
+                StartCoroutine(DeathCouritine());
+
+                
             }
             else
             {
-                updateText();
+                StopCoroutine(ChangeColorCouritine());
+                StartCoroutine(ChangeColorCouritine());
             }
+            updateText();
         }
     }
+
+    /// <summary>
+    /// Coroutine for changing the color when hit
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ChangeColorCouritine()
+    {
+        RunningCourroutine = true;
+        SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+        if (sprite)
+        {
+            Color color = new Color( 0.01f,0.01f,0.01f);
+            sprite.color = color;
+
+            while (sprite.color.r < 1.0f)
+            {
+                sprite.color += color;
+                yield return new WaitForEndOfFrame();
+            }
+
+        }
+        RunningCourroutine = false;
+    }
+
+    /// <summary>
+    /// Courutine for animating the death.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DeathCouritine()
+    {
+
+        Vector3 amount = new Vector3(0.1f, 0.1f, 0.1f);
+        while (transform.localScale.x < 1.5f)
+        {
+            transform.localScale += amount;
+            yield return new WaitForEndOfFrame();
+        }
+
+        while (transform.localScale.x > -0.1)
+        {
+            transform.localScale -= amount;
+            yield return new WaitForEndOfFrame();
+        }
+        gameObject.SetActive(false);
+
+    }
+
 
     /// <summary>
     /// For updating the text with the pending touchs 

@@ -9,13 +9,15 @@ public class LevelBuilder  {
     /// </summary>
     /// <param name="file">the file</param>
     /// <returns>a blockInfo array build </returns>
-    public static BlockLogic.BlockInfo[,] ReadFile(TextAsset file)
+    public static Tile.TileInfo[,] ReadFile(TextAsset file)
     {
         string maindata = file.text;
         maindata = maindata.Replace("\r\n", "\n");
         string[] data = file.text.Split('\n');
+        int height = (data.Length-6)/2;
         
-        BlockLogic.BlockInfo[,] blockMap= new BlockLogic.BlockInfo[11,11];
+
+        Tile.TileInfo[,] tileMap = new Tile.TileInfo[height,11];
         bool readMap = false;
         bool assingLifes = false;
         bool endedRead = false;
@@ -39,9 +41,9 @@ public class LevelBuilder  {
 
                     }
                     int n = System.Int32.Parse(aux);
-                    if (blockMap[j, i] != null)
+                    if (tileMap[j, i] != null)
                     {
-                        blockMap[j, i].lifes = n;
+                        tileMap[j, i]._touchs= n;
                     }
                     i++;
                     if (i == 11)
@@ -49,7 +51,7 @@ public class LevelBuilder  {
 
                 }
                 j++;
-                if (j == 11)
+                if (j == height)
                 {
                     break;
                 }
@@ -58,6 +60,7 @@ public class LevelBuilder  {
             }
             if (readMap&&!endedRead)
             {
+                
                 i = 0;
                 string[] vs = data[l].Split(',');
                 foreach (string s in vs)
@@ -71,16 +74,16 @@ public class LevelBuilder  {
                     int n = System.Int32.Parse(aux);
                     if (n != 0)
                     {
-                        
-                        blockMap[j, i] = new BlockLogic.BlockInfo();
-                        blockMap[j, i].position.x = i;
-                        blockMap[j, i].position.y = j;
-                        blockMap[j, i].type = n;
+
+                        tileMap[j, i] = new Tile.TileInfo();
+                        tileMap[j, i].position.x = i;
+                        tileMap[j, i].position.y = j;
+                        tileMap[j, i]._type= n;
                     }
                     else
                     {
 
-                        blockMap[j, i] = null;
+                        tileMap[j, i] = null;
                     }
                     i++;
                     if (i == 11)
@@ -89,7 +92,7 @@ public class LevelBuilder  {
                 }
 
                 j++;
-                if (j == 11)
+                if (j == height)
                 {
                     endedRead = true;
                 }
@@ -107,6 +110,7 @@ public class LevelBuilder  {
             }
             
         }
-        return blockMap;
+        
+        return tileMap;
     }
 }

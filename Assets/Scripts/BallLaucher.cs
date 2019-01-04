@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class BallLaucher : MonoBehaviour {
     private int _ballsLaunched;
+    private int _ballsToLauch;
     public GameObject ball;
     /// <summary>
     /// Getter/Setter for the value _numBalls
@@ -35,6 +36,7 @@ public class BallLaucher : MonoBehaviour {
     public void LaunchBalls(Vector2 direction, System.Action<BallLogic> actionBallLaunched = null)
     {
         _ballsLaunched = 0;
+        _ballsToLauch = (int)NumBalls;
         direction.Normalize();
         StartCoroutine(LaunchBallsCor(direction,actionBallLaunched));
 
@@ -50,7 +52,7 @@ public class BallLaucher : MonoBehaviour {
     {
 
 
-        while (_ballsLaunched < NumBalls)
+        while (_ballsLaunched < _ballsToLauch)
         {
             try
             {
@@ -65,7 +67,7 @@ public class BallLaucher : MonoBehaviour {
             }
             
             if(actionBallLaunched!=null)actionBallLaunched(Balls[_ballsLaunched]);
-            _ballsLaunched++;
+                _ballsLaunched++;
             yield return new WaitForSeconds(0.1f);
         }
 
