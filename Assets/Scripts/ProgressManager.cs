@@ -29,7 +29,7 @@ public class ProgressManager : MonoBehaviour {
             progress.Close();
 
             string jsonInput = CryptoKek.Cryptography.DecryptString(encodedinput);
-            gProgress = GameManager.gameProgress.fromJson(jsonInput);
+            gProgress = GameManager.gameProgress.FromJson(jsonInput);
 
         }
         catch (System.Exception e)//This means that the progress was lost or that we don't have any progress and we need to create a new progress file
@@ -61,7 +61,7 @@ public class ProgressManager : MonoBehaviour {
         }
 
         string jsoned = "";
-        jsoned = GameManager.gameProgress.toJson(ref prog);
+        jsoned = GameManager.gameProgress.ToJson(ref prog);
 
         string encoded = CryptoKek.Cryptography.EncryptString(jsoned);
 
