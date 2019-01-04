@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileCommonHard : TileCommonHard
+public class TileCommonHard : TileCommon
 {
     // Start is called before the first frame update
     void Start()
