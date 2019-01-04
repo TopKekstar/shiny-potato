@@ -10,8 +10,6 @@ public class TileCommon : Tile
 {
     protected TextMesh text;
 
-    private bool RunningCourroutine;
-
     /// <summary>
     /// for detecting the collision enter
     /// </summary>
@@ -44,7 +42,6 @@ public class TileCommon : Tile
     /// <returns></returns>
     private IEnumerator ChangeColorCouritine()
     {
-        RunningCourroutine = true;
         SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
         if (sprite)
         {
@@ -58,7 +55,6 @@ public class TileCommon : Tile
             }
 
         }
-        RunningCourroutine = false;
     }
 
     /// <summary>
