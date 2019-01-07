@@ -14,7 +14,8 @@ public class LevelManager : MonoBehaviour {
     public BoardManager boardManager;
     public uint _nBalls;
     public int _pendingBalls;
-
+    public uint _score;
+    public UnityEngine.UI.Text score;
     public uint nBalls
     {
         get
@@ -32,6 +33,12 @@ public class LevelManager : MonoBehaviour {
     }
     public bool onPlay;
 
+
+    private short nLevel;
+    private uint _multiplier;
+    
+    
+    
     /// <summary>
     /// Notify when all balls reach the BallSink
     /// </summary>
@@ -50,6 +57,7 @@ public class LevelManager : MonoBehaviour {
         {
             ballSink.waitingFirstBall = false;
             ballSink.transform.position = ball.transform.position;
+            _multiplier = 1;
             
         }
         ball.MoveTo(ballSink.transform.position, ballSink.BallReached);
@@ -62,6 +70,8 @@ public class LevelManager : MonoBehaviour {
 
         ballSink.actionAllBallsReached = AllBallsReached;
         nBalls = 20;
+        _score = 0;
+        _multiplier = 1;
         onPlay = true;
     }
     // Use this for initialization
@@ -71,6 +81,7 @@ public class LevelManager : MonoBehaviour {
     
     public void buildLevel(int idx)
     {
+        nLevel = (short)idx;
         Tile.TileInfo[,] tileInfoMatrix;
         string path = "Mapas/mapdata" + idx.ToString();
         TextAsset text = Resources.Load<TextAsset>(path);
@@ -104,10 +115,16 @@ public class LevelManager : MonoBehaviour {
     /// </summary>
     void EndRound()
     {
+        if(boardManager.MapFinished())
+        {
+            GameManager.gameProgress.levelProgress levelP = new GameManager.gameProgress.levelProgress();
+            levelP.score = _score;
+            levelP.complete = true;
+            levelP.stars = 3;
+            levelP.levelNumber = nLevel;
+            GameManager.manager.modifyLevelProgress(levelP);
+        }
         onPlay = true;
-        if (boardManager.EndOfRound())
-            Debug.Log("Game Over chacho");
-        boardManager.MapFinished();
         nBalls += (uint)_pendingBalls;
         _pendingBalls = 0;
         ballSink.UpdateText();
@@ -128,6 +145,17 @@ public class LevelManager : MonoBehaviour {
             v = v - ballSink.transform.position;
             LaunchBalls(new Vector2(v.x, v.y));
         }
+
+    }
+
+    /// <summary>
+    /// This function calculates the new score after a tile is destroyed by a ball
+    /// </summary>
+    public void onTileDestroyed()
+    {
+        _score += _multiplier * 10;
+        _multiplier += 1;
+        score.text = _score.ToString();
 
     }
 

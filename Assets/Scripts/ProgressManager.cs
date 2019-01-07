@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
-using CryptoKek;
+using System.Security.Cryptography;
+using System;
 
 
 public class ProgressManager : MonoBehaviour {
@@ -28,7 +28,7 @@ public class ProgressManager : MonoBehaviour {
             }
             progress.Close();
 
-            string jsonInput = CryptoKek.Cryptography.DecryptString(encodedinput);
+            string jsonInput = Cryptography.DecryptString(encodedinput);
             gProgress = GameManager.gameProgress.FromJson(jsonInput);
 
         }
@@ -63,7 +63,7 @@ public class ProgressManager : MonoBehaviour {
         string jsoned = "";
         jsoned = GameManager.gameProgress.ToJson(ref prog);
 
-        string encoded = CryptoKek.Cryptography.EncryptString(jsoned);
+        string encoded = Cryptography.EncryptString(jsoned);
 
 
         FileStream progress = new FileStream("kek.lol", FileMode.Create);
@@ -74,17 +74,30 @@ public class ProgressManager : MonoBehaviour {
         progress.Close();
 
     }
- 
-
-
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    static class Cryptography
+    {
+        
+        public static string EncryptString(string plainText)
+        {
+            byte[] save =  System.Text.Encoding.UTF8.GetBytes(plainText);
+            string output = "";
+            foreach(var b in save)
+            {
+                output += (char)b+3;
+            }
+            return output;
+        }
+        //Decrypt
+        public static string DecryptString(string input)
+        {
+            string output = "";
+            foreach(var ch in input)
+            {
+                output += (ch - 3);  
+            }
+            return output;
+        }
+    }
 }
+
+

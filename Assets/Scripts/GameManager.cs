@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour {
             public bool complete;
             public bool unlocked;
             public int stars;
-            public int score;
+            public uint score;
             public short levelNumber;
         }
 
