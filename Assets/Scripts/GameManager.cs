@@ -40,6 +40,11 @@ public class GameManager : MonoBehaviour {
                     z = gO;
 
             z.GetComponent<LevelManager>().buildLevel(_loadedLevel);
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> master
         }
     }
     public GameManager.gameProgress getGameProgress()

@@ -38,9 +38,11 @@ public class BallLogic : MonoBehaviour {
     /// <returns>The return value its for the coroutine </returns>
     private IEnumerator MoveToCoroutine(Vector3 destiny, System.Action<BallLogic> action = null)
     {
+        float amount = 0.1f;
         while (Vector3.Distance(destiny, transform.position) > 0.01f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, destiny, 0.1f);
+            transform.position = Vector3.MoveTowards(transform.position, destiny, amount);
+            amount += 0.01f;   
             yield return new WaitForEndOfFrame();
         }
         transform.position = Vector3.MoveTowards(transform.position, destiny, 1.0f);

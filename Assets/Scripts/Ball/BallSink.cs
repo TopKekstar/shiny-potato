@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Component where the balls go to sleep
+/// </summary>
 public class BallSink : MonoBehaviour {
     private TextMesh text;
     private Vector2 _ballPos;
@@ -9,6 +13,7 @@ public class BallSink : MonoBehaviour {
     public uint _numBalls;
     public LevelManager levelManager;
     public System.Action actionAllBallsReached;
+    public bool waitingFirstBall;
 
     /// <summary>
     /// Method for notifying when a ball reached the ball sink
@@ -34,6 +39,7 @@ public class BallSink : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        waitingFirstBall = true;
         text = GetComponent<TextMesh>();
         UpdateText();
 	}
@@ -56,7 +62,7 @@ public class BallSink : MonoBehaviour {
     /// <summary>
     /// Method for updating the text 
     /// </summary>
-    private void UpdateText()
+    public void UpdateText()
     {
         text.text = (_deadBalls!=0)?_deadBalls.ToString():"";
     }

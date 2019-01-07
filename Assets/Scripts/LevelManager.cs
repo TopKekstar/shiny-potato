@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour {
     public DeathZone deathZone;
     public BoardManager boardManager;
     public uint _nBalls;
+    public int _pendingBalls;
 
     public uint nBalls
     {
@@ -24,6 +25,7 @@ public class LevelManager : MonoBehaviour {
         {
             _nBalls = value;
             ballSink._numBalls = value;
+            ballSink._deadBalls = value;
             ballLauncher.NumBalls = value;
 
         }
@@ -44,35 +46,36 @@ public class LevelManager : MonoBehaviour {
     /// <param name="ball">the ball that reach the DeathZone</param>
     private void BallReachedDeathZone(BallLogic ball)
     {
-        if(ballSink._deadBalls == 0)
+        if(ballSink.waitingFirstBall)
         {
+            ballSink.waitingFirstBall = false;
             ballSink.transform.position = ball.transform.position;
-            ballLauncher.transform.Translate(ball.transform.position.x - ballLauncher.transform.position.x,0,0); 
+            
         }
         ball.MoveTo(ballSink.transform.position, ballSink.BallReached);
 
     }
     private void Awake()
     {
+        _pendingBalls = 0;
         deathZone.actionBallTouch = BallReachedDeathZone;
 
         ballSink.actionAllBallsReached = AllBallsReached;
-
-        ballSink._numBalls = nBalls;
-        ballSink._deadBalls = nBalls;
+        nBalls = 20;
         onPlay = true;
-        ballLauncher.NumBalls = nBalls;
     }
     // Use this for initialization
     void Start () {
     }
+
+    
     public void buildLevel(int idx)
     {
-        BlockLogic.BlockInfo[,] blockInfo;
+        Tile.TileInfo[,] tileInfoMatrix;
         string path = "Mapas/mapdata" + idx.ToString();
         TextAsset text = Resources.Load<TextAsset>(path);
-        blockInfo = LevelBuilder.ReadFile(text);
-        boardManager.BuildMap(blockInfo);
+        tileInfoMatrix = LevelBuilder.ReadFile(text);
+        boardManager.BuildMap(tileInfoMatrix,this);
 
         cam.GetComponent<ScalableCamera>().SetUpCamera();
         canvasC.SetUpCanvas();        
@@ -102,8 +105,14 @@ public class LevelManager : MonoBehaviour {
     void EndRound()
     {
         onPlay = true;
-        boardManager.EndOfRound();
+        if (boardManager.EndOfRound())
+            Debug.Log("Game Over chacho");
         boardManager.MapFinished();
+        nBalls += (uint)_pendingBalls;
+        _pendingBalls = 0;
+        ballSink.UpdateText();
+        ballSink.waitingFirstBall = true;
+        ballLauncher.transform.Translate(ballSink.transform.position.x - ballLauncher.transform.position.x, 0, 0);
 
     }
 
@@ -116,7 +125,6 @@ public class LevelManager : MonoBehaviour {
         if (onPlay)
         {
             Vector3 v = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //TODO:SHOOT
             v = v - ballSink.transform.position;
             LaunchBalls(new Vector2(v.x, v.y));
         }
