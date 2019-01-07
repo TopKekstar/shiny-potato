@@ -64,21 +64,18 @@ public class LevelManager : MonoBehaviour {
         nBalls = 20;
         onPlay = true;
     }
-    // Use this for initialization
-    void Start () {
-    }
 
-    
+
     public void buildLevel(int idx)
     {
         Tile.TileInfo[,] tileInfoMatrix;
         string path = "Mapas/mapdata" + idx.ToString();
         TextAsset text = Resources.Load<TextAsset>(path);
         tileInfoMatrix = LevelBuilder.ReadFile(text);
-        boardManager.BuildMap(tileInfoMatrix,this);
+        boardManager.BuildMap(tileInfoMatrix, this);
 
         cam.GetComponent<ScalableCamera>().SetUpCamera();
-        canvasC.SetUpCanvas();        
+        canvasC.SetUpCanvas();
     }
 
     /// <summary>

@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class TileBallGiver : Tile
 {
-    public int nBallsDrop;
+    protected int nBallsDrop;
 
     private void OnTriggerEnter2D(Collider2D info)
     {
         if (info.gameObject.GetComponent<BallLogic>())
         {
-            if (Touch())
-            {
-                _dead = true;
-                gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                StartCoroutine(DeathCouritine());
-            }
-
+            Hit();
         }
     }
 
-    public override bool Touch()
+    public override void Hit()
+    {
+        if (Touch())
+        {
+            _dead = true;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            StartCoroutine(DeathCouritine());
+        }
+    }
+
+    protected override bool Touch()
     {
         levelManager._pendingBalls+=nBallsDrop;
         return true;
@@ -47,21 +51,6 @@ public class TileBallGiver : Tile
             yield return new WaitForEndOfFrame();
         }
         gameObject.SetActive(false);
-
     }
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 }

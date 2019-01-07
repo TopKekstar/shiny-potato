@@ -127,10 +127,7 @@ public class BoardManager : MonoBehaviour {
             {
                 if (blocks[i, j] != null)
                 {
-                    if (blocks[i, j].Touch())
-                    {
-                        
-                    }
+                    blocks[i, j].Hit();
                 }
             }
         }
