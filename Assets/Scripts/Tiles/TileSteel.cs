@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Unbreakable tile, cannot go down
+/// </summary>
 public class TileSteel : Tile
 {
     public override bool CanBeDestroyed()
@@ -17,17 +20,5 @@ public class TileSteel : Tile
     protected override bool Touch()
     {
         return false;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
