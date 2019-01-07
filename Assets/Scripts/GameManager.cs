@@ -23,13 +23,13 @@ public class GameManager : MonoBehaviour {
         ProgressManager.SaveProgress(gProgress);
         _loadedLevel = id;
         SceneManager.LoadScene(1);
-        
+
     }
     void onSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex == 0)
         {
-            _loadedLevel = -1;                    
+            _loadedLevel = -1;
         }
         else if (scene.buildIndex == 1) // Esto significa que hemos cargado la escena con indice 1, que es la de juego
         {
@@ -40,11 +40,6 @@ public class GameManager : MonoBehaviour {
                     z = gO;
 
             z.GetComponent<LevelManager>().buildLevel(_loadedLevel);
-<<<<<<< HEAD
-=======
-    
-
->>>>>>> master
         }
     }
     public GameManager.gameProgress getGameProgress()
@@ -69,7 +64,7 @@ public class GameManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Clase Utilizada para guardar el progreso del juego. 
+    /// Clase Utilizada para guardar el progreso del juego.
     /// Dentro de sí tiene una lista de levelProgress, con el estado de cada nivel.
     /// </summary>
     [System.Serializable]
