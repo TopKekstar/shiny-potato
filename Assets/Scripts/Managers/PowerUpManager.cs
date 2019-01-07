@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A manager for controlling the power-ups
+/// </summary>
 public class PowerUpManager : MonoBehaviour
 {
-    public enum PowerUp_t
-    {
-        None,
-        Earthquake,
-        SteelTiles,
-    }
-    BoardManager boardManager;
+
+    private BoardManager boardManager;
 
     
 
@@ -27,17 +25,26 @@ public class PowerUpManager : MonoBehaviour
     {
         boardManager.Earthquake();
     }
-
-    public void DoErase()
+    
+    /// <summary>
+    /// This power-up will erase the last row with blocks
+    /// </summary>
+    public void DoEraseRow()
     {
 
     }
 
+    /// <summary>
+    /// this power-up will put a barrier of Tile of steel (The unbreakables ones)
+    /// </summary>
     public void DoSteelBarrier()
     {
 
     }
 
+    /// <summary>
+    /// For notifying the power-up manager the end of the round
+    /// </summary>
     public void EndOfRound()
     {
 

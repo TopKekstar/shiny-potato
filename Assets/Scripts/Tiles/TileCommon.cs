@@ -8,6 +8,9 @@ using UnityEngine;
 /// </summary>
 public class TileCommon : Tile
 {
+    /// <summary>
+    /// The text mesh that shows the pending touchs of the tile
+    /// </summary>
     protected TextMesh text;
 
     /// <summary>
@@ -22,6 +25,9 @@ public class TileCommon : Tile
         }
     }
 
+    /// <summary>
+    /// for Notifying a hit on the tile
+    /// </summary>
     public override void Hit()
     {
         if (Touch() && !Dead)

@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Tile that when you hit it, give you more balls to play with it
+/// </summary>
 public class TileBallGiver : Tile
 {
+    /// <summary>
+    /// The number of balls that give you when dies
+    /// </summary>
     protected int nBallsDrop;
 
+    
     private void OnTriggerEnter2D(Collider2D info)
     {
         if (info.gameObject.GetComponent<BallLogic>())
@@ -16,7 +23,7 @@ public class TileBallGiver : Tile
 
     public override void Hit()
     {
-        if (Touch())
+        if (!Dead&&Touch())
         {
             _dead = true;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;

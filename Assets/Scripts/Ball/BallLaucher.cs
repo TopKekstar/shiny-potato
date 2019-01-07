@@ -6,8 +6,18 @@ using UnityEngine;
 /// Component for launching balls
 /// </summary>
 public class BallLaucher : MonoBehaviour {
+    /// <summary>
+    /// Balls that are launched
+    /// </summary>
     private int _ballsLaunched;
+    /// <summary>
+    /// Balls that will launch
+    /// </summary>
     private int _ballsToLauch;
+
+    /// <summary>
+    /// Prefab of the ball
+    /// </summary>
     public GameObject ball;
     /// <summary>
     /// Getter/Setter for the value _numBalls
@@ -73,13 +83,10 @@ public class BallLaucher : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
-    void Update () {
-
-
-		
-	}
-
+    /// <summary>
+    /// Not implemented yet
+    /// </summary>
+    /// <param name="vector"></param>
     public void SetLine(Vector2 vector)
     {
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
