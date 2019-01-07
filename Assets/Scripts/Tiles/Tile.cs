@@ -17,6 +17,10 @@ public class Tile : MonoBehaviour {
         public int _touchs;
     }
     protected bool _dead;
+
+    /// <summary>
+    /// Public variable for knowing if the tile is dead or alive
+    /// </summary>
     public bool Dead
     {
         get

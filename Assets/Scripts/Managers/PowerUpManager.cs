@@ -33,6 +33,11 @@ public class PowerUpManager : MonoBehaviour
 
     }
 
+    public void DoSteelBarrier()
+    {
+
+    }
+
     public void EndOfRound()
     {
 

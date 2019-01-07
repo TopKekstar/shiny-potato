@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     private int _loadedLevel;
     private gameProgress gProgress;
 
+
     // Use this for initialization
     private void Awake()
     {

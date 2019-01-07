@@ -135,6 +135,19 @@ public class BoardManager : MonoBehaviour {
 
     }
 
+    public void EraseRow()
+    {
+        
+    }
+
+    /// <summary>
+    /// Put an steel barrier in the last row
+    /// </summary>
+    public void SteelBarrier()
+    {
+
+    }
+
     /// <summary>
     /// Check if every block that must destroyed is destroyed
     /// </summary>
