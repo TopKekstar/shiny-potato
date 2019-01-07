@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TileCommonHard : TileCommon
-{
-    // Start is called before the first frame update
-    void Start()
+{ 
+
+    protected override void updateText()
     {
-        
+        text.text = (_pendingTouchs/2).ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

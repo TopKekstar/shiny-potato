@@ -14,26 +14,31 @@ public class TileCommon : Tile
     /// for detecting the collision enter
     /// </summary>
     /// <param name="collision">the object that collides</param>
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<BallLogic>() != null)
-        { 
-            if (Touch())
-            {
-                _dead = true;
-                GetComponent<Collider2D>().enabled = false;
-                StopCoroutine(DeathCouritine());
-                StartCoroutine(DeathCouritine());
-
-                
-            }
-            else
-            {
-                StopCoroutine(ChangeColorCouritine());
-                StartCoroutine(ChangeColorCouritine());
-            }
-            updateText();
+        {
+            Hit();            
         }
+    }
+
+    public override void Hit()
+    {
+        if (Touch())
+        {
+            _dead = true;
+            GetComponent<Collider2D>().enabled = false;
+            StopCoroutine(DeathCouritine());
+            StartCoroutine(DeathCouritine());
+
+
+        }
+        else
+        {
+            StopCoroutine(ChangeColorCouritine());
+            StartCoroutine(ChangeColorCouritine());
+        }
+        updateText();
     }
 
     /// <summary>
@@ -84,22 +89,15 @@ public class TileCommon : Tile
     /// <summary>
     /// For updating the text with the pending touchs 
     /// </summary>
-    private void updateText()
+    protected virtual void updateText()
     {
         text.text = _pendingTouchs.ToString();
     }
+
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         text = GetComponentInChildren<TextMesh>();
         updateText();
-    }
-
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

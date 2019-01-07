@@ -73,23 +73,19 @@ public class Tile : MonoBehaviour {
     /// <summary>
     /// Overridable method for notifying the tile has been touched
     /// </summary>
-    /// <returns>Returns if the tile is finally destroyed</returns>
-    public virtual bool Touch()
+    /// <returns>Returns if the tile has no more pending touchs</returns>
+    protected virtual bool Touch()
     {
         _pendingTouchs--;
         return CanBeDestroyed()&&_pendingTouchs<=0;
     }
 
-    
+    /// <summary>
+    /// Overridable method for simulating a touch
+    /// </summary>
+    public virtual void Hit()
+    {
+        Touch();
+    }
 
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
