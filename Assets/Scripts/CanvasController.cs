@@ -10,6 +10,7 @@ public class CanvasController : MonoBehaviour {
     // Use this for initialization
     public void SetUpCanvas()
     {
+        Debug.Log("setting up canvas");
 
         var techo = GameObject.Find("Techo");
         var suelo = GameObject.Find("DeathZone");
