@@ -123,4 +123,12 @@ public class Tile : MonoBehaviour {
         Touch();
     }
 
+    //Kill that tile
+    public virtual void Kill()
+    {
+        _pendingTouchs = 0;
+        Hit();
+        gameObject.SetActive(false);
+    }
+
 }

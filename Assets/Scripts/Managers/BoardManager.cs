@@ -29,7 +29,7 @@ public class BoardManager : MonoBehaviour {
                         {
                             try
                             {
-                                if (blocks[i + 1, j] == null)
+                                if (blocks[i + 1, j] == null || blocks[i + 1, j].Dead)
                                 {
                                     blocks[i, j].transform.Translate(0, -1, 0);
                                     blocks[i, j].GridPosition.y++;
@@ -48,6 +48,7 @@ public class BoardManager : MonoBehaviour {
                     }
                     else
                     {
+                        blocks[i, j].gameObject.SetActive(false);
                         blocks[i, j] = null; 
                     }
                 }
@@ -122,7 +123,6 @@ public class BoardManager : MonoBehaviour {
 
     public void Earthquake()
     {
-        Debug.Log("a");
         for (int i = 0; i < blocks.GetLength(0); i++)
         {
             for (int j = 0; j < blocks.GetLength(1); j++)
@@ -137,9 +137,35 @@ public class BoardManager : MonoBehaviour {
 
     }
 
-    public void EraseRow()
+    public void EraseLastRow()
     {
-        
+        int rowToErase = -1;
+        for (int i = blocks.GetLength(0) - 1; i >= 0; i--)
+        {
+            for (int j = blocks.GetLength(1) - 1; j >= 0; j--)
+            {
+                if (blocks[i, j] != null)
+                {
+                    rowToErase = i;
+                    break;
+                }
+
+            }
+            if (rowToErase != -1) break;
+        }
+
+        for (int j = blocks.GetLength(1) - 1; j >= 0; j--)
+        {
+            if (blocks[rowToErase, j] != null)
+            {
+                blocks[rowToErase, j].Kill();
+            }
+
+        }
+
+
+
+
     }
 
     /// <summary>
@@ -147,6 +173,16 @@ public class BoardManager : MonoBehaviour {
     /// </summary>
     public void SteelBarrier()
     {
+        int lastRow = blocks.GetLength(0) - 1;
+
+        for (int j = blocks.GetLength(1) - 1; j >= 0; j--)
+        {
+            if (blocks[blocks.GetLength(0) - 1, j] != null)
+            {
+                blocks[lastRow, j].Kill();
+            }
+
+        }
 
     }
 
