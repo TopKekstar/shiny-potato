@@ -57,7 +57,8 @@ public class LevelManager : MonoBehaviour {
         if(ballSink.waitingFirstBall)
         {
             ballSink.waitingFirstBall = false;
-            ballSink.transform.position = ball.transform.position;
+            Vector3 newPos = new Vector3(ball.transform.position.x, ballSink.transform.position.y);
+            ballSink.transform.position = newPos;
             _multiplier = 1;
             
         }

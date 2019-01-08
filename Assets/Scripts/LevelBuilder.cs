@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A class for reading the file and obtain the map of the level
+/// </summary>
 public class LevelBuilder  {
 
     /// <summary>

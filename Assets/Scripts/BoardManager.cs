@@ -127,10 +127,24 @@ public class BoardManager : MonoBehaviour {
             {
                 if (blocks[i, j] != null)
                 {
-                    blocks[i, j].Hit();
+                    if(!blocks[i,j].Dead)
+                        blocks[i, j].Hit();
                 }
             }
         }
+
+    }
+
+    public void EraseRow()
+    {
+        
+    }
+
+    /// <summary>
+    /// Put an steel barrier in the last row
+    /// </summary>
+    public void SteelBarrier()
+    {
 
     }
 
@@ -146,7 +160,7 @@ public class BoardManager : MonoBehaviour {
             {
                 if (blocks[i, j] != null)
                 {
-                    if(!blocks[i,j].gameObject.activeSelf)
+                    if(!blocks[i,j].Dead)
                     {
                         continue;
                     }
@@ -154,7 +168,6 @@ public class BoardManager : MonoBehaviour {
                     {
                         return false;
                     }
-
                 }
                 else
                 {
@@ -163,7 +176,6 @@ public class BoardManager : MonoBehaviour {
 
             }
         }
-        Debug.Log("nigga you made it");
         return true;
 
     }
@@ -173,15 +185,4 @@ public class BoardManager : MonoBehaviour {
         prefabs = new Dictionary<string, GameObject>(20);
 
     }
-
-    // Use this for initialization
-    void Start () {
-
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

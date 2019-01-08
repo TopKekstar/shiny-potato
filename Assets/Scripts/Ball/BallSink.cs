@@ -32,11 +32,6 @@ public class BallSink : MonoBehaviour {
         }
     }
 
-    private void Awake()
-    {
-        
-    }
-
     // Use this for initialization
     void Start () {
         waitingFirstBall = true;
@@ -44,11 +39,6 @@ public class BallSink : MonoBehaviour {
         UpdateText();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     /// <summary>
     /// Method for notifying whe a ball is launched
     /// </summary>

@@ -6,17 +6,41 @@ using UnityEngine;
 /// The main tile class, father of all kind of tiles
 /// </summary>
 public class Tile : MonoBehaviour {
+
+    /// <summary>
+    /// Struct for building the map
+    /// </summary>
     public class TileInfo
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public TileInfo()
         {
             position = new Vector2Int();
         }
+        /// <summary>
+        /// Position in the grid
+        /// </summary>
         public Vector2Int position;
+        /// <summary>
+        /// The type of tiles
+        /// </summary>
         public int _type;
+        /// <summary>
+        /// the touches that need for destroying the tile
+        /// </summary>
         public int _touchs;
     }
+
+    /// <summary>
+    /// Modifiable value of the current status of the tile
+    /// </summary>
     protected bool _dead;
+
+    /// <summary>
+    /// Public variable for knowing if the tile is dead or alive
+    /// </summary>
     public bool Dead
     {
         get
@@ -25,8 +49,19 @@ public class Tile : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// The pending touches for destroying the tile
+    /// </summary>
     protected int _pendingTouchs;
+
+    /// <summary>
+    /// The grid postion
+    /// </summary>
     public Vector2Int GridPosition;
+
+    /// <summary>
+    /// the level manager for notifyning when the block is dead
+    /// </summary>
     protected LevelManager levelManager;
 
     /// <summary>

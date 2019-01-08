@@ -7,10 +7,11 @@ public class CanvasController : MonoBehaviour {
     public RectTransform Down;
     public RectTransform Left;
     public RectTransform Right;
-	// Use this for initialization
-	public void SetUpCanvas () {
+    // Use this for initialization
+    public void SetUpCanvas()
+    {
 
-        var techo= GameObject.Find("Techo");
+        var techo = GameObject.Find("Techo");
         var suelo = GameObject.Find("DeathZone");
         var der = GameObject.Find("pared_der");
         var izq = GameObject.Find("pared_iz");
@@ -44,12 +45,7 @@ public class CanvasController : MonoBehaviour {
         //Haciendo uso de los anchors y los pivots, solo queda colocarlos en su lugar.
         Up.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (float)Screen.height - techoScreen.y);
         Down.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, sueloScreen.y);
-        Left.position = new Vector2(izqScreen.x, Screen.height/2);
-        Right.position = new Vector2(derScreen.x, Screen.height/2);
-        	}
-	
-	// Update is called once per frame
-	void Update () {
-
+        Left.position = new Vector2(izqScreen.x, Screen.height / 2);
+        Right.position = new Vector2(derScreen.x, Screen.height / 2);
     }
 }

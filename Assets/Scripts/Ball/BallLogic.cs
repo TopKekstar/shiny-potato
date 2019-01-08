@@ -8,14 +8,17 @@ using UnityEngine;
 /// </summary>
 public class BallLogic : MonoBehaviour {
     
-    private Rigidbody2D rigidbody;
+    /// <summary>
+    /// The rigid body of the ball
+    /// </summary>
+    private Rigidbody2D rigidBody;
 
     /// <summary>
     /// Stops the ball right in the moment
     /// </summary>
     public void Stop()
     {
-        rigidbody.velocity = new Vector2(0, 0);
+        rigidBody.velocity = new Vector2(0, 0);
     }
     /// <summary>
     /// Method to start the coroutine for moving the ball
@@ -61,21 +64,17 @@ public class BallLogic : MonoBehaviour {
     /// <param name="velocity">the velocity</param>
     public void ShootBall(Vector2 direction, float velocity)
     {
-        rigidbody.velocity = new Vector2(direction.x,direction.y)*velocity;
+        rigidBody.velocity = new Vector2(direction.x,direction.y)*velocity;
        
-
-    }
-    private void Awake()
-    {
-        rigidbody = GetComponent<Rigidbody2D>();
 
     }
 
     /// <summary>
-    /// Initilizacion of the component, this is a method from MonoBehaviour
+    /// Awake of the component, this is a method from MonoBehaviour
     /// </summary>
-    void Start () {
-       
+    private void Awake()
+    {
+        rigidBody = GetComponent<Rigidbody2D>();
 
     }
 
