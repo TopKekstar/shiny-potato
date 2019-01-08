@@ -8,7 +8,7 @@ using System;
 
 public class ProgressManager : MonoBehaviour {
 
-
+    const string path = "kek.lol";
     /// <summary>
     /// Tries to load a gameProgress class from a file.
     /// It takes two steps. First it decrypts it using an external class and
@@ -17,47 +17,42 @@ public class ProgressManager : MonoBehaviour {
     /// <returns>If the file is found, returns an instance of gameProgress with the stored values. If the file was not found, returns a new instance with the basic values so the game can start</returns>
     public static GameManager.gameProgress LoadGameProgress()
     {
-        FileStream progress;
-        GameManager.gameProgress gProgress = new GameManager.gameProgress(0);
-
+        GameManager.gameProgress gProgress = new GameManager.gameProgress(0);   
         try
         {
-            progress = new FileStream("kek.lol", FileMode.Open);
-            string encodedinput = "";
-            int a = 0;
-            a = progress.ReadByte();
-            while (a != -1)
+
+            if(!File.Exists (path))
             {
-                encodedinput += (char)a;
-                a = progress.ReadByte();
+                gProgress = new GameManager.gameProgress(100); //Arbitrary
+                gProgress.Progresses = new List<GameManager.gameProgress.levelProgress>();
+
+                for (int i = 0; i < gProgress.NLevels; i++)
+                {
+                    var aux = new GameManager.gameProgress.levelProgress();
+                    aux.complete = false;
+                    if (i == 0) aux.unlocked = true;
+                    else aux.unlocked = false;
+                    aux.levelNumber = (short)i;
+                    aux.score = 0;
+                    aux.stars = 0;
+
+                    gProgress.Progresses.Add(aux);
+                }
+                SaveProgress(gProgress);
+                return gProgress;
             }
-            progress.Close();
+            else
+            {
+                string encoded = File.ReadAllText(path);
+                string json = Cryptography.DecryptString(encoded);
+                gProgress = GameManager.gameProgress.FromJson(json);
 
-            string jsonInput = Cryptography.DecryptString(encodedinput);
-            gProgress = GameManager.gameProgress.FromJson(jsonInput);
-
+            }
+            
         }
-        catch (System.Exception e)//This means that the progress was lost or that we don't have any progress and we need to create a new progress file
+        catch (System.Exception e)
         {
-            if (e.GetType() != typeof(FileNotFoundException)) Application.Quit();
-
-            gProgress = new GameManager.gameProgress(100); //Arbitrary
-            gProgress.Progresses = new List<GameManager.gameProgress.levelProgress>();
-
-            for (int i = 0; i < gProgress.NLevels; i++)
-            {
-                var aux = new GameManager.gameProgress.levelProgress();
-                aux.complete = false;
-                if (i == 0) aux.unlocked = true;
-                else aux.unlocked = false;
-                aux.levelNumber = (short)i;
-                aux.score = 0;
-                aux.stars = 0;
-
-                gProgress.Progresses.Add(aux);
-            }
-            SaveProgress(gProgress);
-
+            Debug.Log(e.Message);
         }
         return gProgress;
     }
@@ -75,21 +70,25 @@ public class ProgressManager : MonoBehaviour {
 
         try
         {
-            FileStream progress;
             // We want to try open an existing progress file to overwrite it.
             // If it does not exist, we will create a new one
-            progress = new FileStream("kek.lol", FileMode.OpenOrCreate);
-            foreach (var cha in encoded)
+            if (!File.Exists(path))
             {
-                progress.WriteByte((byte)cha);
+                var sw = File.CreateText(path);
+                sw.Write(encoded);
+                sw.Close();
             }
-            progress.Close();
+            else
+            {
+                File.WriteAllText(path, encoded);
+            }
+
         }
         catch(Exception e)
         {
             Debug.Log(e.Message);
         }
-      
+        Debug.Log("Progress saved!");
 
     }
 

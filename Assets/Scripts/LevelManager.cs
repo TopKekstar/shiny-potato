@@ -66,10 +66,12 @@ public class LevelManager : MonoBehaviour {
     }
     private void Awake()
     {
-        if (instance == null) instance = this;
-        else if (instance != this) Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
+        nLevel = (short)GameManager.manager.LoadedLevel;
         
+    }
+    private void Start()
+    {
+        buildLevel(nLevel);   
     }
 
     /// <summary>
@@ -95,9 +97,7 @@ public class LevelManager : MonoBehaviour {
         tileInfoMatrix = LevelBuilder.ReadFile(text);
         boardManager.BuildMap(tileInfoMatrix, this);
 
-        Debug.Log("setting camera up");
         cam.GetComponent<ScalableCamera>().SetUpCamera();
-        Debug.Log("camera set up");
         canvasC.SetUpCanvas();
     }
 
@@ -136,7 +136,7 @@ public class LevelManager : MonoBehaviour {
             levelP.complete = true;
             levelP.unlocked = true;
             levelP.stars = 3;
-            levelP.levelNumber = nLevel;
+            levelP.levelNumber = (short)(nLevel- 1);
 
             GameManager.manager.levelComplete(levelP);
         }

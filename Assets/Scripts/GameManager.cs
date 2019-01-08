@@ -7,8 +7,10 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour {
     public static GameManager manager;
-    private int _loadedLevel;
+    private int loadedLevel;
     private gameProgress gProgress;
+
+    public int LoadedLevel { get => loadedLevel; private set => loadedLevel = value; }
 
     // Use this for initialization
     private void OnEnable()
@@ -19,24 +21,20 @@ public class GameManager : MonoBehaviour {
         if (manager != this)
             Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
-
-
-        SceneManager.activeSceneChanged += onSceneChanged;
-
-        SceneManager.LoadSceneAsync(1);
+        LoadGameProgress();
     }
     private void OnDisable()
     {
-        ProgressManager.SaveProgress(gProgress);
-        SceneManager.activeSceneChanged -= onSceneChanged;
+        SaveProgress();
     }
-    void Start () {
+    void Start ()
+    {
+       
     }
     public void loadLevel(int id)
     {
-        ProgressManager.SaveProgress(gProgress);
-        _loadedLevel = id;
-        ChangeScene(1);
+        LoadedLevel = id;
+        ChangeScene(2);
     }
     
     /// <summary>
@@ -45,48 +43,40 @@ public class GameManager : MonoBehaviour {
     /// <param name="lP"> level progress of the finished level</param>
     public void levelComplete(GameManager.gameProgress.levelProgress lP)
     {
+        LoadedLevel = -1;
         modifyLevelProgress(lP);
+        updateProgressState();
         SaveProgress();
-        ChangeScene(0);
+        ChangeScene(1);
     }
 
-
+        
     void ChangeScene(uint idx)
     {
-        Scene scene = SceneManager.GetSceneByBuildIndex((int)idx);
-        if (!scene.isLoaded)
-        {
-            SceneManager.LoadScene((int)idx);
-            return;
-        }
-        SceneManager.SetActiveScene(scene);
+        SceneManager.LoadScene((int)idx);
     }
 
-
-    /// <summary>
-    /// Callback used when a scene is loaded.
-    /// If The scene loaded is the main scene, we Load the game Progress, to be used by the list.
-    /// If the scene loaded is the gamescene, we initiate the level building routine.
-    /// </summary>
-    /// <param name="scene"> Scene that is loaded</param>
-    /// <param name="mode"> Mode in which the Scene was loaded.</param>
-    void onSceneChanged(Scene scene, Scene s)
+    void updateProgressState()
     {
-        if (scene.buildIndex == 0)
+        gameProgress.levelProgress lp;
+        int i = 0;
+        while (gProgress.Progresses[++i].complete)
         {
-            Debug.Log("Main Scene Loaded");
-            _loadedLevel = -1;
-            LoadGameProgress();
-
         }
-        else if (scene.buildIndex == 1) // Esto significa que hemos cargado la escena con indice 1, que es la de juego
-        {
-            Debug.Log("Game Scene Loaded");
-            GameObject lvlMgr = GameObject.Find("LevelManager");
-            lvlMgr.GetComponent<LevelManager>().buildLevel(_loadedLevel);
-           
-        }  
+        Debug.Log(i);
+
+        lp = gProgress.Progresses[i];
+        lp.levelNumber = (short)i;
+        lp.unlocked = true;
+        lp.complete = false;
+        lp.stars = 0;
+        lp.score = 0;
+        modifyLevelProgress(lp);
+
+        Debug.Log(gProgress.nLevels);
+
     }
+  
     /// <summary>
     /// Gets the Game Progress stored in Game Manager. If it is not in memory, it loads the progress.
     /// </summary>
