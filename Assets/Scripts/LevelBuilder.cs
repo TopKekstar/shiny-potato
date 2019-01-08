@@ -111,7 +111,6 @@ public class LevelBuilder  {
             }
             
         }
-        Debug.Log("finished building map!");
         return tileMap;
     }
 }
