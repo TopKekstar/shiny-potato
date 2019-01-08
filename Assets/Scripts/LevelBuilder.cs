@@ -11,6 +11,7 @@ public class LevelBuilder  {
     /// <returns>a blockInfo array build </returns>
     public static Tile.TileInfo[,] ReadFile(TextAsset file)
     {
+        
         string maindata = file.text;
         maindata = maindata.Replace("\r\n", "\n");
         string[] data = file.text.Split('\n');
@@ -110,7 +111,7 @@ public class LevelBuilder  {
             }
             
         }
-        
+        Debug.Log("finished building map!");
         return tileMap;
     }
 }

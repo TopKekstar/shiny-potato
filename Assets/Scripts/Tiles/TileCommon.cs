@@ -30,6 +30,7 @@ public class TileCommon : Tile
             GetComponent<Collider2D>().enabled = false;
             StopCoroutine(DeathCouritine());
             StartCoroutine(DeathCouritine());
+            levelManager.onTileDestroyed();
 
 
         }

@@ -1,5 +1,5 @@
-﻿//Este script fue sacado de http://www.thegamecontriver.com/2015/06/unity-2d-scale-resize-camera-size-resolution.html?m=1
-//Se utiliza para poder 
+﻿//This script was taken from http://www.thegamecontriver.com/2015/06/unity-2d-scale-resize-camera-size-resolution.html?m=1
+//Used to escalate the camera to a desired resolution
 
 using UnityEngine;
 using System.Collections;
@@ -7,7 +7,10 @@ using System.Collections.Generic;
 public class ScalableCamera : MonoBehaviour
 {
 
-    // Use this for initialization
+    /// <summary>
+    /// Upon call, this function scales the camera to fit in the most aproximate way to the 
+    /// desire camera aspect ratio.
+    /// </summary>
     public void SetUpCamera()
     {
         float TARGET_WIDTH = 720.0f;

@@ -8,6 +8,13 @@ using System;
 
 public class ProgressManager : MonoBehaviour {
 
+
+    /// <summary>
+    /// Tries to load a gameProgress class from a file.
+    /// It takes two steps. First it decrypts it using an external class and
+    /// then it parses it like a JSON file.
+    /// </summary>
+    /// <returns>If the file is found, returns an instance of gameProgress with the stored values. If the file was not found, returns a new instance with the basic values so the game can start</returns>
     public static GameManager.gameProgress LoadGameProgress()
     {
         FileStream progress;
@@ -16,11 +23,9 @@ public class ProgressManager : MonoBehaviour {
         try
         {
             progress = new FileStream("kek.lol", FileMode.Open);
-
             string encodedinput = "";
             int a = 0;
             a = progress.ReadByte();
-
             while (a != -1)
             {
                 encodedinput += (char)a;
@@ -39,62 +44,94 @@ public class ProgressManager : MonoBehaviour {
             gProgress = new GameManager.gameProgress(100); //Arbitrary
             gProgress.Progresses = new List<GameManager.gameProgress.levelProgress>();
 
+            for (int i = 0; i < gProgress.NLevels; i++)
+            {
+                var aux = new GameManager.gameProgress.levelProgress();
+                aux.complete = false;
+                if (i == 0) aux.unlocked = true;
+                else aux.unlocked = false;
+                aux.levelNumber = (short)i;
+                aux.score = 0;
+                aux.stars = 0;
+
+                gProgress.Progresses.Add(aux);
+            }
             SaveProgress(gProgress);
 
         }
         return gProgress;
     }
+    /// <summary>
+    /// Saves the progress to a file.
+    /// Uses JSON as a serializer and then encrypts the output string
+    /// </summary>
+    /// <param name="prog"> gameProgress instance to be saved into a file</param>
     public static void SaveProgress(GameManager.gameProgress prog)
     {
-        
-        for (int i = 0; i < prog.NLevels; i++)
-        {
-            var aux = new GameManager.gameProgress.levelProgress();
-            aux.complete = false;
-            if (i == 0) aux.unlocked = true;
-            else aux.unlocked = false;
-            aux.levelNumber = (short)i;
-            aux.score = 0;
-            aux.stars = 3;
-
-            prog.Progresses.Add(aux);
-        }
-
         string jsoned = "";
         jsoned = GameManager.gameProgress.ToJson(ref prog);
 
         string encoded = Cryptography.EncryptString(jsoned);
 
-
-        FileStream progress = new FileStream("kek.lol", FileMode.Create);
-            foreach (var cha in encoded)
+        try
         {
-            progress.WriteByte((byte)cha);
+            FileStream progress;
+            // We want to try open an existing progress file to overwrite it.
+            // If it does not exist, we will create a new one
+            progress = new FileStream("kek.lol", FileMode.OpenOrCreate);
+            foreach (var cha in encoded)
+            {
+                progress.WriteByte((byte)cha);
+            }
+            progress.Close();
         }
-        progress.Close();
+        catch(Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+      
 
     }
+
+    /// <summary>
+    /// Class implementing a basic Encrypt-Decrypt algorithm for strings
+    /// </summary>
     static class Cryptography
     {
-        
-        public static string EncryptString(string plainText)
+        /// <summary>
+        /// Encrypts a string using kekisimo algorithm
+        /// </summary>
+        /// <param name="input"> String to encrypt</param>
+        /// <returns>Encrypted string</returns>
+        public static string EncryptString(string input)
         {
-            byte[] save =  System.Text.Encoding.UTF8.GetBytes(plainText);
             string output = "";
-            foreach(var b in save)
+            uint i = 0;
+            
+            foreach(char ch in input)
             {
-                output += (char)b+3;
+                if (i % 2 == 0) output += (char)((ch + i));
+                else output += (char)((ch - i));
+                i = (i+1) % 15;
             }
             return output;
         }
-        //Decrypt
+        /// <summary>
+        /// Decrypts a string using kekisimo algorithm
+        /// </summary>
+        /// <param name="input"> Input string which was encripted by kekisimo algorithm</param>
+        /// <returns>Decrypted string</returns> 
         public static string DecryptString(string input)
         {
             string output = "";
-            foreach(var ch in input)
+            uint i = 0;
+            foreach (char ch in input)
             {
-                output += (ch - 3);  
+                if (i % 2 == 0) output += (char)((ch - i));
+                else output += (char)((ch + i));
+                i = (i + 1) % 15;
             }
+
             return output;
         }
     }

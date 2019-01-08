@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
     public static GameManager manager;
@@ -10,62 +11,113 @@ public class GameManager : MonoBehaviour {
     private gameProgress gProgress;
 
     // Use this for initialization
-    private void Awake()
+    private void OnEnable()
     {
-        manager = this;
-        SceneManager.sceneLoaded += onSceneLoaded;
+        //Singleton setting up
+        if(manager == null)
+            manager = this;
+        if (manager != this)
+            Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+
+
+        SceneManager.activeSceneChanged += onSceneChanged;
+
+        SceneManager.LoadSceneAsync(1);
+    }
+    private void OnDisable()
+    {
+        ProgressManager.SaveProgress(gProgress);
+        SceneManager.activeSceneChanged -= onSceneChanged;
     }
     void Start () {
-        gProgress = ProgressManager.LoadGameProgress();
     }
     public void loadLevel(int id)
     {
         ProgressManager.SaveProgress(gProgress);
         _loadedLevel = id;
-        SceneManager.LoadScene(1);
-
+        ChangeScene(1);
     }
-    void onSceneLoaded(Scene scene, LoadSceneMode mode)
+    
+    /// <summary>
+    /// Method to be notified when a level is complete. Changes scene and stores the value of that level's progress
+    /// </summary>
+    /// <param name="lP"> level progress of the finished level</param>
+    public void levelComplete(GameManager.gameProgress.levelProgress lP)
+    {
+        modifyLevelProgress(lP);
+        SaveProgress();
+        ChangeScene(0);
+    }
+
+
+    void ChangeScene(uint idx)
+    {
+        Scene scene = SceneManager.GetSceneByBuildIndex((int)idx);
+        if (!scene.isLoaded)
+        {
+            SceneManager.LoadScene((int)idx);
+            return;
+        }
+        SceneManager.SetActiveScene(scene);
+    }
+
+
+    /// <summary>
+    /// Callback used when a scene is loaded.
+    /// If The scene loaded is the main scene, we Load the game Progress, to be used by the list.
+    /// If the scene loaded is the gamescene, we initiate the level building routine.
+    /// </summary>
+    /// <param name="scene"> Scene that is loaded</param>
+    /// <param name="mode"> Mode in which the Scene was loaded.</param>
+    void onSceneChanged(Scene scene, Scene s)
     {
         if (scene.buildIndex == 0)
         {
+            Debug.Log("Main Scene Loaded");
             _loadedLevel = -1;
+            LoadGameProgress();
+
         }
         else if (scene.buildIndex == 1) // Esto significa que hemos cargado la escena con indice 1, que es la de juego
         {
-            var a = scene.GetRootGameObjects();
-            GameObject z = null;
-            foreach (var gO in a)
-                if (gO.GetComponent<LevelManager>() != null)
-                    z = gO;
-
-            z.GetComponent<LevelManager>().buildLevel(_loadedLevel);
-        }
+            Debug.Log("Game Scene Loaded");
+            GameObject lvlMgr = GameObject.Find("LevelManager");
+            lvlMgr.GetComponent<LevelManager>().buildLevel(_loadedLevel);
+           
+        }  
     }
-    public GameManager.gameProgress getGameProgress()
+    /// <summary>
+    /// Gets the Game Progress stored in Game Manager. If it is not in memory, it loads the progress.
+    /// </summary>
+    /// <returns> Curent Game Progress </returns>
+    public GameManager.gameProgress GetGameProgress()
     {
-        if (gProgress == null) gProgress = ProgressManager.LoadGameProgress();
+        if (gProgress == null) LoadGameProgress();
         return gProgress;
     }
-
-    public void modifyLevelProgress(gameProgress.levelProgress lProgress)
+    public void LoadGameProgress()
     {
-        getGameProgress().Progresses[lProgress.levelNumber] = lProgress;
+        gProgress = ProgressManager.LoadGameProgress();
     }
-
-	void Update () {
-
-	}
-
-
-    private void OnApplicationQuit() // aquí es donde deberíamos cerrar y codificar el progreso
+    /// <summary>
+    /// Wrapper function to save the current game Progress
+    /// </summary>
+    public void SaveProgress ()
     {
         ProgressManager.SaveProgress(gProgress);
     }
+    /// <summary>
+    /// Accesses a specific level in the gameProgress and changes it
+    /// </summary>
+    /// <param name="lProgress"> New Progress to store in place</param>
+    public void modifyLevelProgress(gameProgress.levelProgress lProgress)
+    {
+        GetGameProgress().Progresses[lProgress.levelNumber] = new gameProgress.levelProgress (ref lProgress);
+    }
 
     /// <summary>
-    /// Clase Utilizada para guardar el progreso del juego.
-    /// Dentro de sí tiene una lista de levelProgress, con el estado de cada nivel.
+    /// This class is used to store the Progress of the game 
     /// </summary>
     [System.Serializable]
     public class gameProgress
@@ -78,10 +130,19 @@ public class GameManager : MonoBehaviour {
             public int stars;
             public uint score;
             public short levelNumber;
+            public levelProgress (ref levelProgress lp)
+            {
+                this.levelNumber = lp.levelNumber;
+                this.unlocked = lp.unlocked;
+                this.score = lp.score;
+                this.complete = lp.complete;
+                this.stars = lp.stars;
+            }
         }
 
         public List<levelProgress> _progresses;
         public int nLevels;
+        public int gemas;
 
 
         /// <summary>
@@ -106,6 +167,7 @@ public class GameManager : MonoBehaviour {
         {
             this.NLevels = nLevels;
         }
+ 
         public List<levelProgress> Progresses
         {
             get

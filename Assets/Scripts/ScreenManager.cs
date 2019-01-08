@@ -18,7 +18,7 @@ public class ScreenManager : MonoBehaviour {
         float gameAspectRatio = gameX / gameY;
         Debug.Log(gameAspectRatio);
 
-        //GameObject gArea = GameObject.FindGameObjectWithTag("GameArea");
+        //ameObject gArea = GameObject.FindGameObjectWithTag("GameArea");
         
 
         if (gameAspectRatio < aspectRatio)

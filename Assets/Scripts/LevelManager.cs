@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
+    LevelManager instance;
     public Camera cam;
     public CanvasController canvasC;
     public BallSink ballSink;
@@ -65,6 +66,18 @@ public class LevelManager : MonoBehaviour {
     }
     private void Awake()
     {
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+        
+    }
+
+    /// <summary>
+    /// Builds the level loading the map with index idx
+    /// </summary>
+    /// <param name="idx">Index of the map to load in the scene</param>
+    public void buildLevel(int idx)
+    {
         _pendingBalls = 0;
         deathZone.actionBallTouch = BallReachedDeathZone;
 
@@ -73,11 +86,8 @@ public class LevelManager : MonoBehaviour {
         _score = 0;
         _multiplier = 1;
         onPlay = true;
-    }
 
 
-    public void buildLevel(int idx)
-    {
         nLevel = (short)idx;
         Tile.TileInfo[,] tileInfoMatrix;
         string path = "Mapas/mapdata" + idx.ToString();
@@ -85,7 +95,9 @@ public class LevelManager : MonoBehaviour {
         tileInfoMatrix = LevelBuilder.ReadFile(text);
         boardManager.BuildMap(tileInfoMatrix, this);
 
+        Debug.Log("setting camera up");
         cam.GetComponent<ScalableCamera>().SetUpCamera();
+        Debug.Log("camera set up");
         canvasC.SetUpCanvas();
     }
 
@@ -112,16 +124,22 @@ public class LevelManager : MonoBehaviour {
     /// </summary>
     void EndRound()
     {
-        if(boardManager.MapFinished())
+        onPlay = true;
+        bool lost = boardManager.EndOfRound();
+        if(lost)SceneManager.LoadScene(0);
+        if (boardManager.MapFinished())
         {
+        
             GameManager.gameProgress.levelProgress levelP = new GameManager.gameProgress.levelProgress();
+
             levelP.score = _score;
             levelP.complete = true;
+            levelP.unlocked = true;
             levelP.stars = 3;
             levelP.levelNumber = nLevel;
-            GameManager.manager.modifyLevelProgress(levelP);
+
+            GameManager.manager.levelComplete(levelP);
         }
-        onPlay = true;
         nBalls += (uint)_pendingBalls;
         _pendingBalls = 0;
         ballSink.UpdateText();
@@ -134,6 +152,7 @@ public class LevelManager : MonoBehaviour {
     {
        
     }
+
     private void OnMouseUp()
     {
         if (onPlay)
