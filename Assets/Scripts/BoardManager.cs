@@ -98,6 +98,7 @@ public class BoardManager : MonoBehaviour {
                         blocks[i, j] = temp.GetComponent<Tile>();
                         blocks[i, j].Init(blockInfo[i, j].position.x, blockInfo[i, j].position.y, blockInfo[i, j]._touchs, lm);
                         temp.transform.Translate(j, differ, 0);
+                        
                     }
                     catch (System.Exception e)
                     {
@@ -160,7 +161,7 @@ public class BoardManager : MonoBehaviour {
             {
                 if (blocks[i, j] != null)
                 {
-                    if(!blocks[i,j].Dead)
+                    if(blocks[i,j].Dead)
                     {
                         continue;
                     }

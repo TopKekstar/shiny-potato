@@ -10,9 +10,8 @@ public class TileBallGiver : Tile
     /// <summary>
     /// The number of balls that give you when dies
     /// </summary>
-    protected int nBallsDrop;
+    public int nBallsDrop;
 
-    
     private void OnTriggerEnter2D(Collider2D info)
     {
         if (info.gameObject.GetComponent<BallLogic>())
@@ -23,7 +22,7 @@ public class TileBallGiver : Tile
 
     public override void Hit()
     {
-        if (!Dead&&Touch())
+        if (Touch())
         {
             _dead = true;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -33,6 +32,7 @@ public class TileBallGiver : Tile
 
     protected override bool Touch()
     {
+        
         levelManager._pendingBalls+=nBallsDrop;
         return true;
     }

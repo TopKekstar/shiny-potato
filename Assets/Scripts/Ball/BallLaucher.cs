@@ -76,8 +76,9 @@ public class BallLaucher : MonoBehaviour {
                 Balls.Add(currentBall);
             }
             
-            if(actionBallLaunched!=null)actionBallLaunched(Balls[_ballsLaunched]);
-                _ballsLaunched++;
+            if(actionBallLaunched!=null)
+                actionBallLaunched(Balls[_ballsLaunched]);
+            _ballsLaunched++;
             yield return new WaitForSeconds(0.1f);
         }
 

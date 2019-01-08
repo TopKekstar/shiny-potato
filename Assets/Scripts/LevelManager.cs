@@ -83,9 +83,8 @@ public class LevelManager : MonoBehaviour {
     {
         _pendingBalls = 0;
         deathZone.actionBallTouch = BallReachedDeathZone;
-
+        nBalls = _nBalls;
         ballSink.actionAllBallsReached = AllBallsReached;
-        nBalls = 20;
         _score = 0;
         _multiplier = 1;
         onPlay = true;
@@ -126,11 +125,10 @@ public class LevelManager : MonoBehaviour {
     void EndRound()
     {
         onPlay = true;
-        bool lost = boardManager.EndOfRound();
-        if(lost)SceneManager.LoadScene(0);
-        if (boardManager.MapFinished())
-        {
+        if(boardManager.EndOfRound()) SceneManager.LoadScene(0);
         
+        if (boardManager.MapFinished())
+        { 
             GameManager.gameProgress.levelProgress levelP = new GameManager.gameProgress.levelProgress();
 
             levelP.score = _score;
@@ -141,6 +139,7 @@ public class LevelManager : MonoBehaviour {
 
             GameManager.manager.levelComplete(levelP);
         }
+        
         nBalls += (uint)_pendingBalls;
         _pendingBalls = 0;
         ballSink.UpdateText();
