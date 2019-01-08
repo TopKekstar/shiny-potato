@@ -20,8 +20,9 @@ public class ProgressManager : MonoBehaviour {
         GameManager.gameProgress gProgress = new GameManager.gameProgress(0);   
         try
         {
+            string actualPath = Application.persistentDataPath + path;
 
-            if(!File.Exists (path))
+            if (!File.Exists (actualPath))
             {
                 gProgress = new GameManager.gameProgress(100); //Arbitrary
                 gProgress.Progresses = new List<GameManager.gameProgress.levelProgress>();
@@ -43,7 +44,7 @@ public class ProgressManager : MonoBehaviour {
             }
             else
             {
-                string encoded = File.ReadAllText(path);
+                string encoded = File.ReadAllText(actualPath);
                 string json = Cryptography.DecryptString(encoded);
                 gProgress = GameManager.gameProgress.FromJson(json);
 
@@ -63,6 +64,7 @@ public class ProgressManager : MonoBehaviour {
     /// <param name="prog"> gameProgress instance to be saved into a file</param>
     public static void SaveProgress(GameManager.gameProgress prog)
     {
+        string actualPath = Application.persistentDataPath + path;
         string jsoned = "";
         jsoned = GameManager.gameProgress.ToJson(ref prog);
 
@@ -72,15 +74,15 @@ public class ProgressManager : MonoBehaviour {
         {
             // We want to try open an existing progress file to overwrite it.
             // If it does not exist, we will create a new one
-            if (!File.Exists(path))
+            if (!File.Exists(actualPath))
             {
-                var sw = File.CreateText(path);
+                var sw = File.CreateText(actualPath);
                 sw.Write(encoded);
                 sw.Close();
             }
             else
             {
-                File.WriteAllText(path, encoded);
+                File.WriteAllText(actualPath, encoded);
             }
 
         }
