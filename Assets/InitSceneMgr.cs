@@ -9,7 +9,7 @@ public class InitSceneMgr : MonoBehaviour
     void Start()
     {
         StartCoroutine(LoadGame());
-        
+        Debug.Log(Application.persistentDataPath);
     }
     IEnumerator LoadGame()
     {
