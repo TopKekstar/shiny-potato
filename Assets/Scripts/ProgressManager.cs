@@ -20,8 +20,9 @@ public class ProgressManager : MonoBehaviour {
         GameManager.gameProgress gProgress = new GameManager.gameProgress(0);   
         try
         {
-            string actualPath = Application.persistentDataPath + path;
+            string actualPath = Application.persistentDataPath + "/"+path;
 
+            // If there is no file we have to create a new one with the basic setup to start
             if (!File.Exists (actualPath))
             {
                 gProgress = new GameManager.gameProgress(100); //Arbitrary
@@ -40,14 +41,12 @@ public class ProgressManager : MonoBehaviour {
                     gProgress.Progresses.Add(aux);
                 }
                 SaveProgress(gProgress);
-                return gProgress;
             }
             else
             {
                 string encoded = File.ReadAllText(actualPath);
                 string json = Cryptography.DecryptString(encoded);
                 gProgress = GameManager.gameProgress.FromJson(json);
-
             }
             
         }
@@ -64,33 +63,11 @@ public class ProgressManager : MonoBehaviour {
     /// <param name="prog"> gameProgress instance to be saved into a file</param>
     public static void SaveProgress(GameManager.gameProgress prog)
     {
-        string actualPath = Application.persistentDataPath + path;
-        string jsoned = "";
-        jsoned = GameManager.gameProgress.ToJson(ref prog);
-
+        string actualPath = Application.persistentDataPath + "/" + path;
+        string jsoned = GameManager.gameProgress.ToJson(ref prog);
         string encoded = Cryptography.EncryptString(jsoned);
 
-        try
-        {
-            // We want to try open an existing progress file to overwrite it.
-            // If it does not exist, we will create a new one
-            if (!File.Exists(actualPath))
-            {
-                var sw = File.CreateText(actualPath);
-                sw.Write(encoded);
-                sw.Close();
-            }
-            else
-            {
-                File.WriteAllText(actualPath, encoded);
-            }
-
-        }
-        catch(Exception e)
-        {
-            Debug.Log(e.Message);
-        }
-        Debug.Log("Progress saved!");
+        File.WriteAllText(actualPath, encoded);
 
     }
 

@@ -12,25 +12,28 @@ public class GameManager : MonoBehaviour {
 
     public int LoadedLevel { get => loadedLevel; private set => loadedLevel = value; }
 
-    // Use this for initialization
-    private void OnEnable()
+    private void Awake()
     {
         //Singleton setting up
-        if(manager == null)
+        if (manager == null)
             manager = this;
         if (manager != this)
             Destroy(gameObject);
+
+
         DontDestroyOnLoad(gameObject);
+
         LoadGameProgress();
     }
     private void OnDisable()
     {
         SaveProgress();
     }
-    void Start ()
-    {
-       
-    }
+ 
+    /// <summary>
+    /// Loads a game level 
+    /// </summary>
+    /// <param name="id"> Game Level to be loaded</param>
     public void loadLevel(int id)
     {
         LoadedLevel = id;
@@ -50,12 +53,26 @@ public class GameManager : MonoBehaviour {
         ChangeScene(1);
     }
 
-        
+    /// <summary>
+    /// Changes the scene to the given index
+    /// </summary>
+    /// <param name="idx">Index of the scene to be loaded</param>
     void ChangeScene(uint idx)
     {
-        SceneManager.LoadScene((int)idx);
+        try
+        {
+            SceneManager.LoadScene((int)idx);
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e.Message);
+        }
     }
 
+    /// <summary>
+    /// This function updates the unlocked state of every level.
+    /// It goes through every complete level until the last, and unlocks the level next to it
+    /// </summary>
     void updateProgressState()
     {
         gameProgress.levelProgress lp;
@@ -86,6 +103,10 @@ public class GameManager : MonoBehaviour {
         if (gProgress == null) LoadGameProgress();
         return gProgress;
     }
+
+    /// <summary>
+    /// Loads the Game progress file into the gameManager attribute gProgress.
+    /// </summary>
     public void LoadGameProgress()
     {
         gProgress = ProgressManager.LoadGameProgress();
