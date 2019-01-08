@@ -30,7 +30,7 @@ public class TileCommon : Tile
     /// </summary>
     public override void Hit()
     {
-        if (Touch() && !Dead)
+        if (Touch())
         {
             _dead = true;
             GetComponent<Collider2D>().enabled = false;

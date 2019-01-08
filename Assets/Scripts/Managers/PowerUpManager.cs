@@ -10,6 +10,14 @@ public class PowerUpManager : MonoBehaviour
 
     private BoardManager boardManager;
 
+    public enum PowerUp_t
+    {
+        NONE,
+        EARTHQUAKE,
+        STEELBARRIER,
+        ERASEROW,
+    }
+
     
 
 
@@ -21,7 +29,7 @@ public class PowerUpManager : MonoBehaviour
     /// <summary>
     /// This power-up make an earthquake that hits 
     /// </summary>
-    public void DoEarthquake()
+    public void DoEarthquake(PowerUp_t a)
     {
         boardManager.Earthquake();
     }

@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour {
     public BallLaucher ballLauncher;
     public DeathZone deathZone;
     public BoardManager boardManager;
+    protected PowerUpManager powerUpManager;
     public uint _nBalls;
     public int _pendingBalls;
     public uint _score;
@@ -68,6 +69,8 @@ public class LevelManager : MonoBehaviour {
     private void Awake()
     {
         nLevel = (short)GameManager.manager.LoadedLevel;
+        powerUpManager = GetComponent<PowerUpManager>();
+
         
     }
     private void Start()
@@ -99,6 +102,7 @@ public class LevelManager : MonoBehaviour {
 
         cam.GetComponent<ScalableCamera>().SetUpCamera();
         canvasC.SetUpCanvas();
+        powerUpManager.Init(boardManager);
     }
 
     /// <summary>

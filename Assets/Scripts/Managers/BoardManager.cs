@@ -122,13 +122,14 @@ public class BoardManager : MonoBehaviour {
 
     public void Earthquake()
     {
+        Debug.Log("a");
         for (int i = 0; i < blocks.GetLength(0); i++)
         {
             for (int j = 0; j < blocks.GetLength(1); j++)
             {
                 if (blocks[i, j] != null)
                 {
-                    if(!blocks[i,j].Dead)
+                    //if(!blocks[i,j].Dead)
                         blocks[i, j].Hit();
                 }
             }
