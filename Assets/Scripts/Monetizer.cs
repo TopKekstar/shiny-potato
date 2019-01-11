@@ -8,7 +8,7 @@ public class Monetizer : MonoBehaviour
 
     // Variables for unityAds
     static string gameID = "2999979";
-    static bool testMode = true;
+    static bool testMode = false;
     string placementId = "rewardedVideo";
 
     //GUI Variables
@@ -17,16 +17,7 @@ public class Monetizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        Debug.Log("Starting monetization");
-        try
-        {
-          Monetization.Initialize(gameID, testMode);        
-        }
-        catch (System.Exception e)
-        {
-            Debug.Log(e.Message);
-        }
+        Monetization.Initialize(gameID, testMode);  
     }
     public void ShowAD()
     {

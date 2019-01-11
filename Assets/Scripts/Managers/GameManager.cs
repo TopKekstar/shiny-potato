@@ -71,6 +71,14 @@ public class GameManager : MonoBehaviour {
             Debug.Log(e.Message);
         }
     }
+    /// <summary>
+    /// Loads the MenuScene from other scene
+    /// </summary>
+    public void GoToMenu()
+    {
+        SaveProgress();
+        ChangeScene(0);
+    }
 
     /// <summary>
     /// This function updates the unlocked state of every level.
