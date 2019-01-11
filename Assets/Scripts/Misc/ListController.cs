@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+/// <summary>
+/// For making the select level menu
+/// </summary>
 public class ListController : MonoBehaviour {
     public GameObject element;
     public int numberElements = 150;
@@ -52,10 +55,5 @@ public class ListController : MonoBehaviour {
             }
             i++;
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }

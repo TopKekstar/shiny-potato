@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+/// <summary>
+/// For adjusting the canvas on the main game
+/// </summary>
 public class CanvasController : MonoBehaviour {
     public RectTransform Up;
     public RectTransform Down;
     public RectTransform Left;
     public RectTransform Right;
-    // Use this for initialization
+
+    /// <summary>
+    /// initialize the canvas
+    /// </summary>
     public void SetUpCanvas()
     {
         var techo = GameObject.Find("Techo");

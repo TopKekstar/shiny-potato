@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Monetization;
 
+/// <summary>
+/// For managing the ads
+/// </summary>
 public class Monetizer : MonoBehaviour
 {
 
@@ -11,7 +14,9 @@ public class Monetizer : MonoBehaviour
     static bool testMode = false;
     string placementId = "rewardedVideo";
 
-    //GUI Variables
+    /// <summary>
+    /// GUI Panel
+    /// </summary>
     public GameObject monetizePanel;
 
     // Start is called before the first frame update
@@ -19,6 +24,10 @@ public class Monetizer : MonoBehaviour
     {
         Monetization.Initialize(gameID, testMode);  
     }
+
+    /// <summary>
+    /// starts the coroutine for showing an ad
+    /// </summary>
     public void ShowAD()
     {
         StartCoroutine(ShowAdWhenReady());
@@ -38,6 +47,11 @@ public class Monetizer : MonoBehaviour
             ad.Show(AdFinished);
         }
     }
+
+    /// <summary>
+    /// For notyfing when the add is shown
+    /// </summary>
+    /// <param name="res">the result of the ad</param>
     void AdFinished (ShowResult res)
     {
         if (res == ShowResult.Finished)
@@ -47,7 +61,6 @@ public class Monetizer : MonoBehaviour
         }
     }
 
-    //Shows the panel with the 'watch ad' button
     public void ShowMonetizePanel()
     {
         monetizePanel.SetActive(true);

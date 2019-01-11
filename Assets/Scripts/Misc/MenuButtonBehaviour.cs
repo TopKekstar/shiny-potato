@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// For the behaviour of the button of every level
+/// </summary>
 public class MenuButtonBehaviour : MonoBehaviour {
     private int _id;
 

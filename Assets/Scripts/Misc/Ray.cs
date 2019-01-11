@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// just for the TileRay
+/// </summary>
 public class Ray : MonoBehaviour
 {
     public TileRay.OrientationRay orientation;
