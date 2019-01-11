@@ -13,7 +13,7 @@ public class ScalableCamera : MonoBehaviour
     /// </summary>
     public void SetUpCamera()
     {
-        float TARGET_WIDTH = 720.0f;
+        float TARGET_WIDTH = 675.0f;
         float TARGET_HEIGHT = 919.0f;
         int PIXELS_TO_UNITS = 30; // 1:1 ratio of pixels to units
 

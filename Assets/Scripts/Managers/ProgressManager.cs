@@ -21,8 +21,6 @@ public class ProgressManager : MonoBehaviour {
         try
         {
             string actualPath = Application.persistentDataPath + "/"+name;
-            Debug.Log(actualPath);
-
             // If there is no file we have to create a new one with the basic setup to start
             if (!File.Exists (actualPath))
             {

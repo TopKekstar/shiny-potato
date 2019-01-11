@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour {
     public void GoToMenu()
     {
         SaveProgress();
-        ChangeScene(0);
+        ChangeScene(1);
     }
 
     /// <summary>
