@@ -21,8 +21,7 @@ public class Monetizer : MonoBehaviour
         Debug.Log("Starting monetization");
         try
         {
-           Monetization.Initialize(gameID, testMode);
-           
+          Monetization.Initialize(gameID, testMode);        
         }
         catch (System.Exception e)
         {
