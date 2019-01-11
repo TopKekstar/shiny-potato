@@ -6,6 +6,8 @@ public class TileRay : Tile
 {
     public GameObject ray;
 
+    protected AudioSource audio;
+
     public enum OrientationRay
     {
         Horizontal, Vertical
@@ -21,6 +23,9 @@ public class TileRay : Tile
     {
         if (other.GetComponent<BallLogic>())
         {
+            if(!audio.isPlaying)
+                audio.Play();
+
             counterIn++;
             if(counterIn == 1)
             {
@@ -36,6 +41,7 @@ public class TileRay : Tile
             counterIn--;
             if (counterIn <= 0)
             {
+                
                 ray.SetActive(false);
             }
         }
@@ -58,5 +64,6 @@ public class TileRay : Tile
     private void Start()
     {
         counterIn = 0;
+        audio = GetComponent<AudioSource>();
     }
 }

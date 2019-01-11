@@ -12,7 +12,10 @@ public class LevelManager : MonoBehaviour {
     public BallLaucher ballLauncher;
     public DeathZone deathZone;
     public BoardManager boardManager;
+
     protected PowerUpManager powerUpManager;
+    protected AudioSource audio;
+
     public uint _nBalls;
     protected int _pendingBalls;
     public uint _score;
@@ -75,7 +78,7 @@ public class LevelManager : MonoBehaviour {
     {
         nLevel = (short)GameManager.manager.LoadedLevel;
         powerUpManager = GetComponent<PowerUpManager>();
-
+        audio = GetComponent<AudioSource>();
         
     }
     private void Start()
@@ -193,6 +196,7 @@ public class LevelManager : MonoBehaviour {
             default:
                 break;
         }
+        audio.Play();
         _score += _multiplier * 10;
         _multiplier += 1;
         score.text = _score.ToString();
