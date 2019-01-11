@@ -31,18 +31,19 @@ public class GameManager : MonoBehaviour {
     }
  
     /// <summary>
-    /// Loads a game level 
+    /// Saves the progress and loads a game level
     /// </summary>
     /// <param name="id"> Game Level to be loaded</param>
     public void loadLevel(int id)
     {
         LoadedLevel = id;
-        ChangeScene(2);
         SaveProgress();
+        ChangeScene(2);
     }
     
     /// <summary>
-    /// Method to be notified when a level is complete. Changes scene and stores the value of that level's progress
+    /// Method to be notified when a level is complete.
+    /// Stores the progress of the new level, saves it to a file and loads the game Menu1
     /// </summary>
     /// <param name="lP"> level progress of the finished level</param>
     public void levelComplete(GameManager.gameProgress.levelProgress lP)
