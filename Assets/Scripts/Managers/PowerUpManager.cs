@@ -31,7 +31,12 @@ public class PowerUpManager : MonoBehaviour
     /// </summary>
     public void DoEarthquake()
     {
-        boardManager.Earthquake();
+        if (GameManager.manager.CanAffordPrice(100))
+        {
+            GameManager.manager.RemoveKeKCoins(100);
+            boardManager.Earthquake();
+
+        }
     }
     
     /// <summary>
@@ -39,7 +44,11 @@ public class PowerUpManager : MonoBehaviour
     /// </summary>
     public void DoEraseRow()
     {
-        boardManager.EraseLastRow();
+        if (GameManager.manager.CanAffordPrice(100))
+        {
+            GameManager.manager.RemoveKeKCoins(100);
+            boardManager.EraseLastRow();
+        }
     }
 
     /// <summary>
@@ -47,7 +56,11 @@ public class PowerUpManager : MonoBehaviour
     /// </summary>
     public void DoSteelBarrier()
     {
-        boardManager.SteelBarrier();
+        if (GameManager.manager.CanAffordPrice(100))
+        {
+            GameManager.manager.RemoveKeKCoins(100);
+            boardManager.SteelBarrier();
+        }
     }
 
     /// <summary>
