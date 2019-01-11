@@ -22,12 +22,12 @@ public class BallSink : MonoBehaviour {
     public void BallReached(BallLogic ball)
     {        
         _deadBalls++;
-        UpdateText();
         if (_deadBalls == _numBalls)
         {
             if (actionAllBallsReached != null)
             {
                 actionAllBallsReached();
+                UpdateText();
             }
         }
     }
@@ -46,7 +46,8 @@ public class BallSink : MonoBehaviour {
     public void BallLaunched(BallLogic ball)
     {
         _deadBalls--;
-        UpdateText();
+        text.text = "";
+
     }
 
     /// <summary>
