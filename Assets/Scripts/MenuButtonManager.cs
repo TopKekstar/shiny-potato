@@ -17,7 +17,7 @@ public class MenuButtonManager : MonoBehaviour
     }
     public void GoToGit()
     {
-        Application.OpenURL("www.github.com/TopKekstar");
+        Application.OpenURL("https://github.com/TopKekstar/");
     }
     public void Magic()
     {
