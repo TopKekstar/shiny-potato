@@ -49,8 +49,11 @@ public class Monetizer : MonoBehaviour
     }
     void AdFinished (ShowResult res)
     {
-        if (res == ShowResult.Finished) //reward player;
+        if (res == ShowResult.Finished)
+        {
+            GameManager.manager.AddKeKCoins(50);
             monetizePanel.SetActive(false);
+        }
     }
 
     //Shows the panel with the 'watch ad' button
