@@ -29,7 +29,7 @@ public class PowerUpManager : MonoBehaviour
     /// <summary>
     /// This power-up make an earthquake that hits 
     /// </summary>
-    public void DoEarthquake(PowerUp_t a)
+    public void DoEarthquake()
     {
         boardManager.Earthquake();
     }

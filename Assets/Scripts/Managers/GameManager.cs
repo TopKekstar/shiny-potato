@@ -129,6 +129,46 @@ public class GameManager : MonoBehaviour {
     }
 
     /// <summary>
+    /// The current amount of KeKCoins
+    /// </summary>
+    /// <returns>The current amount of KeKCoins</returns>
+    public uint GetKeKCoins()
+    {
+        return gProgress.KeKCoins;
+    }
+
+    /// <summary>
+    /// For adding KeKCoins
+    /// </summary>
+    /// <param name="amount">the amount it is gonna be added</param>
+    public void AddKeKCoins(uint amount)
+    {
+        gProgress.KeKCoins += amount;
+        ProgressManager.SaveProgress(gProgress);
+    }
+
+    /// <summary>
+    /// For removing KeKCoins
+    /// </summary>
+    /// <param name="amount"></param>
+    public void RemoveKeKCoins(uint amount)
+    {
+        gProgress.KeKCoins -= amount;
+        ProgressManager.SaveProgress(gProgress);
+
+    }
+
+    /// <summary>
+    /// For checking if you can afford that amount of KeKCoins
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public bool CanAffordPrice(uint amount)
+    {
+        return GetKeKCoins() >= amount;
+    }
+
+    /// <summary>
     /// This class is used to store the Progress of the game 
     /// </summary>
     [System.Serializable]
@@ -154,7 +194,7 @@ public class GameManager : MonoBehaviour {
 
         public List<levelProgress> _progresses;
         public int nLevels;
-        public int gemas;
+        public uint KeKCoins;
 
 
         /// <summary>
