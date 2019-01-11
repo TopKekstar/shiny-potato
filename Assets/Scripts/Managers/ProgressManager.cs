@@ -8,7 +8,7 @@ using System;
 
 public class ProgressManager : MonoBehaviour {
 
-    const string path = "kek.lol";
+    const string name = "kek.lol";
     /// <summary>
     /// Tries to load a gameProgress class from a file.
     /// It takes two steps. First it decrypts it using an external class and
@@ -20,7 +20,8 @@ public class ProgressManager : MonoBehaviour {
         GameManager.gameProgress gProgress = new GameManager.gameProgress(0);   
         try
         {
-            string actualPath = Application.persistentDataPath + "/"+path;
+            string actualPath = Application.persistentDataPath + "/"+name;
+            Debug.Log(actualPath);
 
             // If there is no file we have to create a new one with the basic setup to start
             if (!File.Exists (actualPath))
@@ -63,11 +64,17 @@ public class ProgressManager : MonoBehaviour {
     /// <param name="prog"> gameProgress instance to be saved into a file</param>
     public static void SaveProgress(GameManager.gameProgress prog)
     {
-        string actualPath = Application.persistentDataPath + "/" + path;
+        string actualPath = Application.persistentDataPath + "/" + name;
         string jsoned = GameManager.gameProgress.ToJson(ref prog);
         string encoded = Cryptography.EncryptString(jsoned);
-
-        File.WriteAllText(actualPath, encoded);
+        try
+        {
+            File.WriteAllText(actualPath, encoded);
+        }
+        catch(System.Exception e)
+        {
+            Debug.Log(e);
+        }
 
     }
 

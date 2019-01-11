@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
     }
     private void OnDisable()
     {
-        SaveProgress();
+     
     }
  
     /// <summary>
@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
     {
         LoadedLevel = id;
         ChangeScene(2);
+        SaveProgress();
     }
     
     /// <summary>
