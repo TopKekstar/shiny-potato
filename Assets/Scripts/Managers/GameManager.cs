@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Linq;
 
 public class GameManager : MonoBehaviour {
@@ -145,6 +146,7 @@ public class GameManager : MonoBehaviour {
     public void AddKeKCoins(uint amount)
     {
         gProgress.KeKCoins += amount;
+        GameObject.Find("KekoinVal").GetComponent<Text>().text = gProgress.KeKCoins.ToString();
         ProgressManager.SaveProgress(gProgress);
     }
 
@@ -155,6 +157,7 @@ public class GameManager : MonoBehaviour {
     public void RemoveKeKCoins(uint amount)
     {
         gProgress.KeKCoins -= amount;
+        GameObject.Find("KekoinVal").GetComponent<Text>().text = gProgress.KeKCoins.ToString();
         ProgressManager.SaveProgress(gProgress);
 
     }
