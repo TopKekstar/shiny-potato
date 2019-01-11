@@ -42,7 +42,6 @@ public class LevelManager : MonoBehaviour {
     private uint _multiplier;
     
     
-    
     /// <summary>
     /// Notify when all balls reach the BallSink
     /// </summary>
@@ -123,12 +122,7 @@ public class LevelManager : MonoBehaviour {
         ballLauncher.LaunchBalls(dir, BallLaunched);
 
     }
-    /// <summary>
-    /// Is called once per frame, this is a method from MonoBehaviour
-    /// </summary>
-    void Update () {
-
-    }
+    
 
 
     /// <summary>
