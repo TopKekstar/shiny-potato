@@ -69,6 +69,17 @@ public class LevelManager : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Calls GameManager.gotoMenu.
+    /// Intended for use in a button
+    /// </summary>
+    public void GoToMenu()
+    {
+     
+        GameManager.manager.GoToMenu();
+    }
+
+
     public void AddPendingBalls(int balls)
     {
         _pendingBalls+= balls;
