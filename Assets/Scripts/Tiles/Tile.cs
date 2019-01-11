@@ -33,6 +33,8 @@ public class Tile : MonoBehaviour {
         public int _touchs;
     }
 
+    public int type;
+
     /// <summary>
     /// Modifiable value of the current status of the tile
     /// </summary>
@@ -62,7 +64,12 @@ public class Tile : MonoBehaviour {
     /// <summary>
     /// the level manager for notifyning when the block is dead
     /// </summary>
-    protected LevelManager levelManager;
+
+
+    protected System.Action<Tile> ActionWhenHit;
+
+    protected System.Action<Tile> ActionWhenDead;
+
 
     /// <summary>
     /// Overridable Method for initializiation of the Tile
@@ -70,10 +77,11 @@ public class Tile : MonoBehaviour {
     /// <param name="x">X position in the grid</param>
     /// <param name="y">Y position in the grid</param>
     /// <param name="touchs">Touchs you need for destroying that tile</param>
-    public virtual void Init(int x , int y, int touchs, LevelManager lm)
+    public virtual void Init(int x , int y, int touchs, System.Action<Tile> whenDie = null , System.Action<Tile> whenHit = null)
     {
         _dead = false;
-        levelManager= lm;
+        ActionWhenHit = whenHit;
+        ActionWhenDead = whenDie;
         GridPosition = new Vector2Int(x, y);
         _pendingTouchs = touchs;
     }
@@ -126,8 +134,7 @@ public class Tile : MonoBehaviour {
     //Kill that tile
     public virtual void Kill()
     {
-        _pendingTouchs = 0;
-        Hit();
+        _dead = true;
         gameObject.SetActive(false);
     }
 

@@ -29,23 +29,23 @@ public class TileCommon : Tile
     /// for Notifying a hit on the tile
     /// </summary>
     public override void Hit()
-    {
-        if (Touch())
+    { 
+        if (Touch()&&!Dead)
         {
             _dead = true;
             GetComponent<Collider2D>().enabled = false;
             StopCoroutine(DeathCouritine());
             StartCoroutine(DeathCouritine());
-            levelManager.onTileDestroyed();
-
-
+            if (ActionWhenDead != null)
+                ActionWhenDead(this);
         }
-        else
+        else if(!Dead)
         {
             StopCoroutine(ChangeColorCouritine());
             StartCoroutine(ChangeColorCouritine());
+            updateText();
+
         }
-        updateText();
     }
 
     /// <summary>

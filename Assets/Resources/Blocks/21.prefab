@@ -119,5 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf7941ea914a894896865b38d566af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 21
   GridPosition: {x: 0, y: 0}
   nBallsDrop: 1

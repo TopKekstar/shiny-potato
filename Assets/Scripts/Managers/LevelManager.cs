@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour {
     public BoardManager boardManager;
     protected PowerUpManager powerUpManager;
     public uint _nBalls;
-    public int _pendingBalls;
+    protected int _pendingBalls;
     public uint _score;
     public UnityEngine.UI.Text score;
     public uint nBalls
@@ -66,6 +66,12 @@ public class LevelManager : MonoBehaviour {
         ball.MoveTo(ballSink.transform.position, ballSink.BallReached);
 
     }
+
+    public void AddPendingBalls(int balls)
+    {
+        _pendingBalls+= balls;
+    }
+
     private void Awake()
     {
         nLevel = (short)GameManager.manager.LoadedLevel;
@@ -171,8 +177,23 @@ public class LevelManager : MonoBehaviour {
     /// <summary>
     /// This function calculates the new score after a tile is destroyed by a ball
     /// </summary>
-    public void onTileDestroyed()
+    /// <param name="tile"></param>
+    public void onTileDestroyed(Tile tile)
     {
+        switch (tile.type)
+        {
+            case 21:
+                AddPendingBalls(1);
+                break;
+            case 22:
+                AddPendingBalls(2);
+                break;
+            case 23:
+                AddPendingBalls(3);
+                break;
+            default:
+                break;
+        }
         _score += _multiplier * 10;
         _multiplier += 1;
         score.text = _score.ToString();
@@ -187,7 +208,7 @@ public class LevelManager : MonoBehaviour {
         ballSink.BallLaunched(ball);
     }
 
-    
+
 
 
 

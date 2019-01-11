@@ -185,6 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1161ae19bba194c9024bb81e1f4683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 3
+  GridPosition: {x: 0, y: 0}
 --- !u!60 &7923205037976555783
 PolygonCollider2D:
   m_ObjectHideFlags: 0

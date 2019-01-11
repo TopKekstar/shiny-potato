@@ -22,18 +22,17 @@ public class TileBallGiver : Tile
 
     public override void Hit()
     {
-        if (Touch())
+        if (Touch()&&!Dead)
         {
             _dead = true;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             StartCoroutine(DeathCouritine());
+            ActionWhenDead(this);
         }
     }
 
     protected override bool Touch()
     {
-        
-        levelManager._pendingBalls+=nBallsDrop;
         return true;
     }
 

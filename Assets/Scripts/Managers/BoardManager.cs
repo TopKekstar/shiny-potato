@@ -8,6 +8,7 @@ using UnityEngine;
 public class BoardManager : MonoBehaviour {
     Tile[,] blocks;
     Dictionary<string, GameObject> prefabs;
+    LevelManager levelManager;
 
     /// <summary>
     /// Notify to all blocks the end of the round, by calling the method end of round
@@ -68,11 +69,11 @@ public class BoardManager : MonoBehaviour {
     public void BuildMap (Tile.TileInfo[,] blockInfo, LevelManager lm)
     {
 
-
+        levelManager = lm;
         Camera c = Camera.current;
         int differ = 2;
 
-        blocks = new Tile[blockInfo.GetLength(0), 13];
+        blocks = new Tile[blockInfo.GetLength(0)+2, 11];
 
         for (int i = blockInfo.GetLength(0)-3; i >= 0; i--,differ++)
         {
@@ -94,12 +95,26 @@ public class BoardManager : MonoBehaviour {
 
                     try
                     {
-
+                        
                         temp = GameObject.Instantiate(temp, transform);
                         blocks[i, j] = temp.GetComponent<Tile>();
-                        blocks[i, j].Init(blockInfo[i, j].position.x, blockInfo[i, j].position.y, blockInfo[i, j]._touchs, lm);
+
+                        System.Action<Tile> whenDie = lm.onTileDestroyed;
+                        System.Action<Tile> whenHit = null;
+
+                        int type = System.Int32.Parse(key);
+                        switch (type)
+                        {
+                            case 7:
+                                whenHit = HitRowOfTheTile;
+                                break;
+                            case 8:
+                                whenHit = HitColumnOfTheTile;
+                                break;
+                        }
+                        blocks[i, j].Init(blockInfo[i, j].position.x, blockInfo[i, j].position.y, blockInfo[i, j]._touchs,whenDie,whenHit);
                         temp.transform.Translate(j, differ, 0);
-                        
+
                     }
                     catch (System.Exception e)
                     {
@@ -108,7 +123,7 @@ public class BoardManager : MonoBehaviour {
                         
                     }
 
-                    
+
                 }
                 else
                 {
@@ -117,7 +132,7 @@ public class BoardManager : MonoBehaviour {
 
             }
         }
-        
+
 
     }
 
@@ -216,6 +231,31 @@ public class BoardManager : MonoBehaviour {
         }
         return true;
 
+    }
+
+    public void HitRowOfTheTile(Tile tile)
+    {
+        int row = tile.GridPosition.y;
+        for (int j = 0; j < blocks.GetLength(1); j++)
+        {
+            if (blocks[row, j] != null && (blocks[row,j].type != 7 && blocks[row, j].type != 8))
+            {
+                blocks[row, j].Hit();
+            }
+
+        }
+    }
+    public void HitColumnOfTheTile(Tile tile)
+    {
+        int column = tile.GridPosition.x;
+        for (int i = 0; i < blocks.GetLength(0); i++)
+        {
+            if (blocks[i, column] != null && (blocks[i, column].type != 7 && blocks[i, column].type != 8))
+            {
+                blocks[i, column].Hit();
+            }
+
+        }
     }
 
     private void Awake()
