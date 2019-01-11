@@ -7,12 +7,26 @@ using UnityEngine;
 /// Component where the balls go to sleep
 /// </summary>
 public class BallSink : MonoBehaviour {
+    /// <summary>
+    /// The text that display the balls you can use
+    /// </summary>
     private TextMesh text;
-    private Vector2 _ballPos;
+
+    /// <summary>
+    /// The current balls that are dead
+    /// </summary>
     public uint _deadBalls;
+
     public uint _numBalls;
-    public LevelManager levelManager;
+    
+    /// <summary>
+    /// A delegate when all the balls reach to the destination
+    /// </summary>
     public System.Action actionAllBallsReached;
+
+    /// <summary>
+    /// for checking if is waiting for the first ball
+    /// </summary>
     public bool waitingFirstBall;
 
     /// <summary>

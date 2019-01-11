@@ -78,7 +78,10 @@ public class LevelManager : MonoBehaviour {
         GameManager.manager.GoToMenu();
     }
 
-
+    /// <summary>
+    /// For adding pending balls
+    /// </summary>
+    /// <param name="balls">the amount of balls</param>
     public void AddPendingBalls(int balls)
     {
         _pendingBalls+= balls;
@@ -133,7 +136,7 @@ public class LevelManager : MonoBehaviour {
         ballLauncher.LaunchBalls(dir, BallLaunched);
 
     }
-    
+
 
 
     /// <summary>
@@ -142,32 +145,27 @@ public class LevelManager : MonoBehaviour {
     void EndRound()
     {
         onPlay = true;
-        if(boardManager.EndOfRound()) SceneManager.LoadScene(0);
-        
+        if (boardManager.EndOfRound()) SceneManager.LoadScene(0);
+
         if (boardManager.MapFinished())
-        { 
+        {
             GameManager.gameProgress.levelProgress levelP = new GameManager.gameProgress.levelProgress();
 
             levelP.score = _score;
             levelP.complete = true;
             levelP.unlocked = true;
             levelP.stars = 3;
-            levelP.levelNumber = (short)(nLevel- 1);
+            levelP.levelNumber = (short)(nLevel - 1);
 
             GameManager.manager.levelComplete(levelP);
         }
-        
+
         nBalls += (uint)_pendingBalls;
         _pendingBalls = 0;
         ballSink.UpdateText();
         ballSink.waitingFirstBall = true;
         ballLauncher.transform.Translate(ballSink.transform.position.x - ballLauncher.transform.position.x, 0, 0);
 
-    }
-
-    private void OnMouseDrag()
-    {
-       
     }
 
     private void OnMouseUp()

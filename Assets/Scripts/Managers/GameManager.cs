@@ -10,8 +10,14 @@ using System.Linq;
 /// The class for managing the whole game
 /// </summary>
 public class GameManager : MonoBehaviour {
+    /// <summary>
+    /// A global instance for the project
+    /// </summary>
     public static GameManager manager;
     private int loadedLevel;
+    /// <summary>
+    /// The current progress of the game
+    /// </summary>
     private gameProgress gProgress;
 
     public int LoadedLevel { get => loadedLevel; private set => loadedLevel = value; }
@@ -29,10 +35,7 @@ public class GameManager : MonoBehaviour {
 
         LoadGameProgress();
     }
-    private void OnDisable()
-    {
-     
-    }
+   
  
     /// <summary>
     /// Saves the progress and loads a game level

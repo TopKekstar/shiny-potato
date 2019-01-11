@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+/// <summary>
+/// For managing the load scene
+/// </summary>
 public class InitSceneMgr : MonoBehaviour
 {
+    /// <summary>
+    /// the image that show up in the start
+    /// </summary>
     public UnityEngine.UI.Image splash;
+    /// <summary>
+    /// the awesome audio that plays on the start
+    /// </summary>
     private AudioSource audio;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(LoadGame());
         audio = GetComponent<AudioSource>();
+        StartCoroutine(LoadGame());
     }
+
+    /// <summary>
+    /// coroutine  for the splash screens
+    /// </summary>
+    /// <returns></returns>
     IEnumerator LoadGame()
     {
         

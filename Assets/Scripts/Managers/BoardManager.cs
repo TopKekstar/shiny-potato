@@ -6,9 +6,16 @@ using UnityEngine;
 /// For managing the tiles 
 /// </summary>
 public class BoardManager : MonoBehaviour {
-    Tile[,] blocks;
-    Dictionary<string, GameObject> prefabs;
-    LevelManager levelManager;
+    /// <summary>
+    /// all the tiles of the game
+    /// </summary>
+    private Tile[,] blocks;
+    
+    /// <summary>
+    /// for managing the prefabs of the tiles
+    /// </summary>
+    private Dictionary<string, GameObject> prefabs;
+
 
     /// <summary>
     /// Notify to all blocks the end of the round, by calling the method end of round
@@ -68,8 +75,6 @@ public class BoardManager : MonoBehaviour {
     /// <param name="blockInfo">an bidimensional array with all the info about the map</param>
     public void BuildMap (Tile.TileInfo[,] blockInfo, LevelManager lm)
     {
-
-        levelManager = lm;
         Camera c = Camera.current;
         int differ = 2;
 

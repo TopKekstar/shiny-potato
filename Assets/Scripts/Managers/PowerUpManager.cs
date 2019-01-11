@@ -10,14 +10,6 @@ public class PowerUpManager : MonoBehaviour
 
     private BoardManager boardManager;
 
-    public enum PowerUp_t
-    {
-        NONE,
-        EARTHQUAKE,
-        STEELBARRIER,
-        ERASEROW,
-    }
-
     
 
 

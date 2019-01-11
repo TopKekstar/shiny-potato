@@ -5,7 +5,9 @@ using UnityEngine;
 using System.Security.Cryptography;
 using System;
 
-
+/// <summary>
+/// For managing the whole progress of the game
+/// </summary>
 public class ProgressManager : MonoBehaviour {
 
     const string name = "kek.lol";
