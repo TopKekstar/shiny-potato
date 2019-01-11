@@ -53,7 +53,7 @@ public class ProgressManager : MonoBehaviour {
         }
         catch (System.Exception e)
         {
-            Debug.Log(e.Message);
+            //Application.Quit(-1);
         }
         return gProgress;
     }
@@ -73,7 +73,7 @@ public class ProgressManager : MonoBehaviour {
         }
         catch(System.Exception e)
         {
-            Debug.Log(e);
+            //Application.Quit(-1);
         }
 
     }
