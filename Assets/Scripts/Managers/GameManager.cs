@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Linq;
 
+/// <summary>
+/// The class for managing the whole game
+/// </summary>
 public class GameManager : MonoBehaviour {
     public static GameManager manager;
     private int loadedLevel;
