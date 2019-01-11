@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class TileRay : Tile
 {
-    int counterIn;
+    public GameObject ray;
+
+    public enum OrientationRay
+    {
+        Horizontal, Vertical
+    };
+    public OrientationRay orientationRay;
+
+    /// <summary>
+    /// Atribute for knowing how many balls still in the trigger
+    /// </summary>
+    private int counterIn;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<BallLogic>())
@@ -28,13 +40,7 @@ public class TileRay : Tile
             }
         }
     }
-    public GameObject ray;
-
-    public enum OrientationRay
-    {
-        Horizontal,Vertical
-    };
-    public OrientationRay orientationRay;
+   
 
     public override void Hit()
     {

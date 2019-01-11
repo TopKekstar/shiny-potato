@@ -29,13 +29,18 @@ public class BallLaucher : MonoBehaviour {
     /// A list of all the balls
     /// </summary>
     public List<BallLogic> Balls;
-    public BallSink ballSink;
+
+    /// <summary>
+    /// The component for playing the shoot sound
+    /// </summary>
+    private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
         Balls = new List<BallLogic>();
         GameObject aux = GameObject.Instantiate(ball, transform.position, Quaternion.identity);
         Balls.Add(aux.GetComponent<BallLogic>());
+        audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -48,6 +53,7 @@ public class BallLaucher : MonoBehaviour {
         _ballsLaunched = 0;
         _ballsToLauch = (int)NumBalls;
         direction.Normalize();
+        audioSource.Play();
         StartCoroutine(LaunchBallsCor(direction,actionBallLaunched));
 
     }
@@ -66,21 +72,23 @@ public class BallLaucher : MonoBehaviour {
         {
             try
             {
-                Balls[_ballsLaunched].ShootBall(dir, 10.0f);
+                Balls[_ballsLaunched].ShootBall(dir, 20.0f);
             }
             catch (System.ArgumentOutOfRangeException e)
             {
                 GameObject aux = GameObject.Instantiate(ball, transform.position, Quaternion.identity);
                 BallLogic currentBall = aux.GetComponent<BallLogic>();
-                currentBall.ShootBall(dir, 10.0f);
+                currentBall.ShootBall(dir, 20.0f);
                 Balls.Add(currentBall);
             }
             
             if(actionBallLaunched!=null)
                 actionBallLaunched(Balls[_ballsLaunched]);
             _ballsLaunched++;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
+        audioSource.Pause();
+        
 
     }
 

@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
-    LevelManager instance;
     public Camera cam;
     public CanvasController canvasC;
     public BallSink ballSink;

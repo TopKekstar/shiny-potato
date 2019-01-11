@@ -39,7 +39,7 @@ public class PowerUpManager : MonoBehaviour
     /// </summary>
     public void DoEraseRow()
     {
-
+        boardManager.EraseLastRow();
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public class PowerUpManager : MonoBehaviour
     /// </summary>
     public void DoSteelBarrier()
     {
-
+        boardManager.SteelBarrier();
     }
 
     /// <summary>
@@ -56,16 +56,5 @@ public class PowerUpManager : MonoBehaviour
     public void EndOfRound()
     {
 
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

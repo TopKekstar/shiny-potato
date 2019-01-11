@@ -73,6 +73,7 @@ public class BoardManager : MonoBehaviour {
         Camera c = Camera.current;
         int differ = 2;
 
+        prefabs.Add("20",Resources.Load<GameObject>("Blocks/20"));
         blocks = new Tile[blockInfo.GetLength(0)+2, 11];
 
         for (int i = blockInfo.GetLength(0)-3; i >= 0; i--,differ++)
@@ -90,6 +91,7 @@ public class BoardManager : MonoBehaviour {
                     catch (System.Exception)
                     {
                         temp = Resources.Load<GameObject>("Blocks/" + key);
+                        
                         prefabs.Add(key, temp);
                     }
 
@@ -116,7 +118,7 @@ public class BoardManager : MonoBehaviour {
                         temp.transform.Translate(j, differ, 0);
 
                     }
-                    catch (System.Exception e)
+                    catch (System.Exception )
                     {
                         Debug.Log("Block number:" + key + " does not exist");
                         blocks[i, j] = null;
@@ -174,6 +176,7 @@ public class BoardManager : MonoBehaviour {
             if (blocks[rowToErase, j] != null)
             {
                 blocks[rowToErase, j].Kill();
+                
             }
 
         }
@@ -190,13 +193,12 @@ public class BoardManager : MonoBehaviour {
     {
         int lastRow = blocks.GetLength(0) - 1;
 
-        for (int j = blocks.GetLength(1) - 1; j >= 0; j--)
+        for (int j = 3; j < 8; j++)
         {
-            if (blocks[blocks.GetLength(0) - 1, j] != null)
-            {
-                blocks[lastRow, j].Kill();
-            }
-
+            GameObject temp = Instantiate(prefabs["20"], transform);
+            blocks[lastRow, j] = temp.GetComponent<Tile>();
+            blocks[lastRow, j].Init(j, lastRow,1);
+            temp.transform.Translate(j, -1,0);
         }
 
     }
